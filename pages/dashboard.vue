@@ -47,12 +47,18 @@ definePageMeta({
         <div class="pt-4 pb-4">
             <div class="pb-4">
                 <h2>Compromissos de hoje</h2>
-                <MeetingList :meetings="todayMeetings"/>
+                <MeetingList
+                    :meetings="todayMeetings"
+                    type="today"
+                />
             </div>
 
             <div class="pb-4">
                 <h2>Compromissos futuros</h2>
-                <MeetingList :meetings="futureMeetings"/>
+                <MeetingList
+                    :meetings="futureMeetings"
+                    type="future"
+                />
             </div>
 
             <div class="pb-4">
@@ -60,6 +66,7 @@ definePageMeta({
                 <MeetingList
                     :meetings="pastMeetings"
                     style="opacity: 0.5;"
+                    type="past"
                 />
             </div>
         </div>

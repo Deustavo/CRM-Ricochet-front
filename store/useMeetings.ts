@@ -7,6 +7,7 @@ interface MeetingType {
     date: string;
     location: string;
     link: string;
+    endDate: string;
 }
 
 const state = reactive({
