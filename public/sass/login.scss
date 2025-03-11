@@ -23,3 +23,14 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .login {
+        &__container {
+            width: 100%;
+            padding: 40px 6vw;
+            box-shadow: none;
+        }
+    }
+    
+}
