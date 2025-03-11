@@ -1,7 +1,7 @@
 import { reactive, computed } from 'vue';
 import mockMeeting from './__mockMeetings__.json'
 
-interface Meeting {
+interface MeetingType {
     id: number;
     title: string;
     date: string;
@@ -10,7 +10,7 @@ interface Meeting {
 }
 
 const state = reactive({
-    meetings: mockMeeting as Meeting[],
+    meetings: mockMeeting as MeetingType[],
 });
 
 export const useMeetings = () => {
@@ -33,7 +33,7 @@ export const useMeetings = () => {
         return state.meetings.filter(meeting => new Date(meeting.date) > today);
     });
 
-    const addMeeting = (meeting: Meeting) => {
+    const addMeeting = (meeting: MeetingType) => {
         state.meetings.push(meeting);
     };
 
