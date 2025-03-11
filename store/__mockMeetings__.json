@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "title": "Reunião de Planejamento",
+        "date": "2025-03-11T09:00:00",
+        "location": "Sala de Conferência 1",
+        "link": ""
+    },
+    {
+        "id": 2,
+        "title": "Revisão de Projeto",
+        "date": "2025-03-11T14:00:00",
+        "location": "Sala de Conferência 2",
+        "link": ""
+    },
+    {
+        "id": 3,
+        "title": "Treinamento de Equipe",
+        "date": "2025-03-12T10:00:00",
+        "location": "Sala de Treinamento",
+        "link": ""
+    },
+    {
+        "id": 4,
+        "title": "Reunião com Cliente",
+        "date": "2025-03-12T15:00:00",
+        "location": "Sala de Reuniões",
+        "link": ""
+    },
+    {
+        "id": 5,
+        "title": "Sessão de Brainstorming",
+        "date": "2025-03-13T11:00:00",
+        "location": "Sala de Ideias",
+        "link": ""
+    },
+    {
+        "id": 6,
+        "title": "Apresentação de Resultados",
+        "date": "2025-03-13T16:00:00",
+        "location": "Auditório",
+        "link": ""
+    },
+    {
+        "id": 7,
+        "title": "Reunião de Alinhamento",
+        "date": "2025-03-14T09:30:00",
+        "location": "Sala de Conferência 3",
+        "link": ""
+    },
+    {
+        "id": 8,
+        "title": "Workshop de Inovação",
+        "date": "2025-03-14T13:00:00",
+        "location": "Sala de Workshops",
+        "link": ""
+    },
+    {
+        "id": 9,
+        "title": "Reunião de Feedback",
+        "date": "2025-03-15T10:30:00",
+        "location": "Sala de Reuniões",
+        "link": ""
+    },
+    {
+        "id": 10,
+        "title": "Happy Hour",
+        "date": "2025-03-15T18:00:00",
+        "location": "Bar Local",
+        "link": ""
+    }
+]
