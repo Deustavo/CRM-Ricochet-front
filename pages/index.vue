@@ -3,5 +3,7 @@
 </script>
 
 <template>
-    <h1>Login</h1>
+    <NuxtLayout name="login">
+        <h1>Login</h1>
+    </NuxtLayout>
 </template>

@@ -6,6 +6,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
     if (!user.isAuthenticated) {
         // toast.info('É necessário fazer o login para acessar as reuniões');
-        return navigateTo('/login');
+        return navigateTo('/');
     }
 })
