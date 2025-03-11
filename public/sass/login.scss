@@ -5,23 +5,6 @@
         padding: 40px;
         width: 480px;
     }
-
-    &__button {
-        width: 100%;
-        border-radius: 6px;
-        padding: 8px 0px;
-        background-color: var(--color-1);
-        border: none;
-        color: white;
-        font-weight: bold;
-        box-shadow: var(--color-1) 0px 2px 8px 0px;
-        transition: all ease-in-out 200ms;
-
-        &:hover {
-            filter: brightness(1.2);
-            color: black;
-        }
-    }
 }
 
 @media screen and (max-width: 768px) {

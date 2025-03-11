@@ -1,0 +1,17 @@
+.dashboard {
+    &__logo {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .dashboard {
+        &__logo {
+            width: 34px;
+            height: 34px;
+            object-fit: cover;
+            object-position: 0;
+        }
+    }
+    
+}
