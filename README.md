@@ -4,7 +4,7 @@ Esse projeto é um desafio da empresa Ricochet 360 de criar um sistema CRM de ge
 
 ## Arquitetura da solução
 
-Esse projeto contpem as rotas:
+Esse projeto contém as rotas:
 
 - `/login`: Página de login onde os usuários podem inserir suas credenciais para acessar a aplicação;
 - `/register`: Página de registro onde novos usuários podem criar uma conta;
