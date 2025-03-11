@@ -7,21 +7,16 @@
 }
 
 // Elementos default
-
 body {
   font-family: "Roboto", sans-serif;
 }
 
 h2 {
-    font-size: calc(0.8rem + .9vw);
+    font-size: 24px;
     margin: 12px 2vw;
 }
 
-h3 { font-size: calc(0.2rem + .9vw) }
-
-p {
-    margin: 4px 0px;
-}
+h3 { font-size: 18px }
 
 
 
@@ -36,10 +31,28 @@ p {
     font-weight: bold;
     box-shadow: var(--color-1) 0px 2px 8px 0px;
     transition: all ease-in-out 200ms;
+    white-space: nowrap;
 
     &:hover {
         filter: brightness(1.2);
         color: var(--color-2);
+    }
+}
+
+.button-2 {
+    width: 100%;
+    border-radius: 6px;
+    padding: 8px 16px;
+    background-color: transparent;
+    border: 2px solid var(--color-1);
+    color: var(--color-1);
+    font-weight: bold;
+    box-shadow: none;
+    transition: all ease-in-out 200ms;
+
+    &:hover {
+        background-color: var(--color-1);
+        color: white;
     }
 }
 

@@ -31,5 +31,17 @@
         
         border: 1px solid #e0e0e0;
         border-radius: 8px;
+
+        p {
+            display: flex;
+            align-items: center;
+            margin: 0px 0px 8px 0px;
+            color: #444;
+            font-size: 14px;
+        }
+
+        i {
+            margin-right: 8px;
+        }
     }
 }

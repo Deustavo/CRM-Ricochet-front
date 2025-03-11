@@ -26,16 +26,15 @@ definePageMeta({
                     src="/public/img/logo-ricochet360-sm.png"
                 />
             </h1>
-<!-- 
-            <div>
+
+            <div class="d-flex">
                 <button
-                    class="button-1"
+                    class="button-2 me-4"
                     @click="() => logout()"
                 >
                     Sair
                 </button>
-            </div> -->
-            <div>
+
                 <button
                     class="button-1"
                     @click="() => console.log('Nova reunião')"
@@ -58,7 +57,10 @@ definePageMeta({
 
             <div class="pb-4">
                 <h2>Compromissos passados</h2>
-                <MeetingList :meetings="pastMeetings"/>
+                <MeetingList
+                    :meetings="pastMeetings"
+                    style="opacity: 0.5;"
+                />
             </div>
         </div>
     </main>

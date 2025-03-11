@@ -15,6 +15,21 @@ const props = defineProps({
         required: true
     }
 });
+
+const getHour = (date: string) => {
+    return new Date(date).toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+};
+
+const getDate = (date: string) => {
+    return new Date(date).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
+};
 </script>
 
 <template>
@@ -27,17 +42,17 @@ const props = defineProps({
 
             <p>
                 <i class="pi pi-clock" />
-                <span>{{  }}</span>
+                <span>{{ getHour(meeting.date) }}</span>
             </p>
 
             <p>
                 <i class="pi pi-calendar" />
-                <span>{{  }}</span>
+                <span>{{ getDate(meeting.date) }}</span>
             </p>
             
             <p>
                 <i class="pi pi-map" />
-                <span>{{  }}</span>
+                <span>{{ meeting.location }}</span>
             </p>
 
             <button
