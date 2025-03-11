@@ -26,16 +26,15 @@ const getSavedUser = () => {
 const user = reactive<UserSession>(getSavedUser());
 
 export const useSession = () => {
-    const setUser = (userId: string, token: string) => {
-        user.id = userId;
-        user.token = token;
+    const setUser = (newUser: UserSession) => {
+        user.id = newUser.id;
+        user.token = newUser.token;
         user.isAuthenticated = true;
 
         store.session("@user", JSON.stringify(user));
     };
 
     const logout = () => {
-        console.log("logout");
         user.id = null;
         user.token = null;
         user.isAuthenticated = false;

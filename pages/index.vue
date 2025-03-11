@@ -38,7 +38,11 @@ const handleSubmit = async (event: Event) => {
         //     body: JSON.stringify({ email: email.value, password: password.value }),
         // });
 
-        setUser(email.value, password.value);
+        setUser({
+            id: 1,
+            token: 'TOKEN_EXEMPLE',
+        });
+
         navigateTo('/dashboard');
     } catch (error) {
         toast.error('Email ou senha inválidos!');
