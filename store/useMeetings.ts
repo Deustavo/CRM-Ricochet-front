@@ -31,7 +31,11 @@ export const useMeetings = () => {
     });
 
     const futureMeetings = computed(() => {
-        return state.meetings.filter(meeting => new Date(meeting.date) > today);
+        return state.meetings.filter(meeting => {
+            const meetingDate = new Date(meeting.date);
+            meetingDate.setHours(0, 0, 0, 0);
+            return meetingDate.getTime() !== today.getTime() && meetingDate > today;
+        });
     });
 
     const addMeeting = (meeting: MeetingType) => {

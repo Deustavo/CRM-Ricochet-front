@@ -45,37 +45,36 @@ const showLink = (link: string): boolean => {
 };
 
 /**
- * contagem de horas para o evento
+ * Conta o tempo que falta para o evento e retoran uma string
  * @param date 
  * @param endDate 
  */
 const timeUntilEvent = (date: string, endDate: string): string => {
+    const now = new Date();
     const eventDate = new Date(date);
     const eventEndDate = new Date(endDate);
-    const now = new Date();
 
+    const timeDifference = eventDate.getTime() - now.getTime();
+    const hoursDifference = Math.ceil(timeDifference / (1000 * 3600));
+    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+    // Se a data do evento já passou
     if (now > eventEndDate) {
         return 'Já terminou';
     }
 
-    const timeDifference = eventDate.getTime() - now.getTime();
-    const hoursDifference = Math.ceil(timeDifference / (1000 * 3600));
-
+    // Se o evento está acontecendo agora
     if (hoursDifference <= 0) {
         return 'Em andamento';
     }
 
-    const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
-
-    if (daysDifference === 1) {
-        return 'Amanhã';
+    // Contagem de horas pro evento
+    if (hoursDifference < 24) {
+        return `Em ${hoursDifference} horas`;
     }
 
-    if (daysDifference > 1) {
-        return `Em ${daysDifference} dias`;
-    }
-
-    return `Em ${hoursDifference} horas`;
+    // Contagem de dias até o evento
+    return `Em ${daysDifference} dias`;
 };
 </script>
 
