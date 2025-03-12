@@ -53,7 +53,7 @@ const openLink = (link: string): void => {
 </script>
 
 <template>
-    <ul class="meeting__list">
+    <ul class="meeting__grid">
         <li
             class="meeting__item"
             v-for="meeting in props.meetings" :key="meeting.id"
@@ -64,34 +64,34 @@ const openLink = (link: string): void => {
                 </span>
             </b>
 
-            <!-- <h4 class="meeting__title">{{ meeting.title }}</h4> -->
+            <h4 class="meeting__title">{{ meeting.title }}</h4>
 
-            <!-- <p>
+            <p>
                 <i class="pi pi-clock" />
                 <span>{{ getHour(meeting.date) }}</span>
-            </p> -->
+            </p>
 
-            <!-- <p>
+            <p>
                 <i class="pi pi-calendar" />
                 <span>{{ getDate(meeting.date) }}</span>
-            </p> -->
+            </p>
             
-            <!-- <p>
+            <p>
                 <i class="pi pi-map" />
                 <span>{{ meeting.location }}</span>
-            </p> -->
+            </p>
 
-            <!-- <button
+            <button
                 class="button--2 mb-2 mt-1"
                 v-if="showLink(meeting.link)"
                 @click="() => openLink(meeting.link)"
             >
                 Acessar reunião online
-            </button> -->
+            </button>
         </li>
     </ul>
 </template>
 
 <style scoped>
-@import '@/public/sass/meetingList.scss';
+@import '@/public/sass/meetingGrid.scss';
 </style>

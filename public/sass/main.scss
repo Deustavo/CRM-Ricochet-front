@@ -9,14 +9,23 @@
 // Elementos default
 body {
   font-family: "Roboto", sans-serif;
+  overflow-y: scroll;
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 32px;
     margin: 12px 2vw;
 }
 
-h3 { font-size: 20px }
+h3 {
+    font-size: 20px;
+    margin: 12px 2vw;
+}
+
+h4 {
+    font-size: 24px;
+    margin: 12px 2vw;
+}
 
 p {
     margin: 0;

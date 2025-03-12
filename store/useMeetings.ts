@@ -42,11 +42,45 @@ export const useMeetings = () => {
         state.meetings.push(meeting);
     };
 
+    /**
+     * Conta o tempo que falta para o evento e retoran uma string
+     * @param date 
+     * @param endDate 
+     */
+    const timeUntilEvent = (date: string, endDate: string): string => {
+        const now = new Date();
+        const eventDate = new Date(date);
+        const eventEndDate = new Date(endDate);
+
+        const timeDifference = eventDate.getTime() - now.getTime();
+        const hoursDifference = Math.ceil(timeDifference / (1000 * 3600));
+        const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+        // Se a data do evento já passou
+        if (now > eventEndDate) {
+            return 'Já terminou';
+        }
+
+        // Se o evento está acontecendo agora
+        if (hoursDifference <= 0) {
+            return 'Em andamento';
+        }
+
+        // Contagem de horas pro evento
+        if (hoursDifference < 24) {
+            return `Em ${hoursDifference} horas`;
+        }
+
+        // Contagem de dias até o evento
+        return `Em ${daysDifference} dias`;
+    };
+
     return {
         state,
         todayMeetings,
         pastMeetings,
         futureMeetings,
         addMeeting,
+        timeUntilEvent,
     };
 };

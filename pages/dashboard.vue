@@ -59,50 +59,81 @@ definePageMeta({
         </div>
 
         <div class="pt-4 pb-4">
-            <div>
-                <div class="d-flex justify-content-between align-items-center">
-                    <h2>Compromissos de hoje</h2>
-                    <div class="dashboard__views">
-                        <p class="me-2">Vizualização:</p>
-                        <div class="dashboard__views__types">
-                            <div
-                                class="dashboard__views__type"
-                                :class="{ 'dashboard__views__type__selected': meetingsView === 'grid' }"
-                                @click="setMeetingView('grid')"
-                            >
-                                <i class="pi pi-th-large" />
-                            </div>
-                            <div
-                                class="dashboard__views__type"
-                                :class="{ 'dashboard__views__type__selected': meetingsView === 'list' }"
-                                @click="setMeetingView('list')"    
-                            >
-                                <i class="pi pi-list" />
-                            </div>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Olá, Gustavo</h2>
+                <div class="dashboard__views">
+                    <p class="me-2">Vizualização:</p>
+                    <div class="dashboard__views__types">
+                        <div
+                            class="dashboard__views__type"
+                            :class="{ 'dashboard__views__type__selected': meetingsView === 'grid' }"
+                            @click="setMeetingView('grid')"
+                        >
+                            <i class="pi pi-th-large" />
+                        </div>
+                        <div
+                            class="dashboard__views__type"
+                            :class="{ 'dashboard__views__type__selected': meetingsView === 'list' }"
+                            @click="setMeetingView('list')"    
+                        >
+                            <i class="pi pi-list" />
                         </div>
                     </div>
                 </div>
-                <MeetingList
-                    :meetings="todayMeetings"
-                    type="today"
-                />
             </div>
 
-            <div>
-                <h2>Compromissos futuros</h2>
-                <MeetingList
-                    :meetings="futureMeetings"
-                    type="future"
-                />
+            <div v-if="meetingsView === 'grid'">
+                <div>
+                    <h3>Compromissos de hoje</h3>
+                    <MeetingGrid
+                        :meetings="todayMeetings"
+                        type="today"
+                    />
+                </div>
+
+                <div>
+                    <h3>Compromissos futuros</h3>
+                    <MeetingGrid
+                        :meetings="futureMeetings"
+                        type="future"
+                    />
+                </div>
+
+                <div>
+                    <h3>Compromissos passados</h3>
+                    <MeetingGrid
+                        :meetings="pastMeetings"
+                        type="past"
+                        style="opacity: 0.5;"
+                    />
+                </div>
             </div>
 
-            <div>
-                <h2>Compromissos passados</h2>
-                <MeetingList
-                    :meetings="pastMeetings"
-                    type="past"
-                    style="opacity: 0.5;"
-                />
+            <div v-if="meetingsView === 'list'">
+                <div>
+                    <h3>Compromissos de hoje</h3>
+                    <MeetingList
+                        :meetings="todayMeetings"
+                        type="today"
+                    />
+                </div>
+
+                <div>
+                    <h3>Compromissos futuros</h3>
+                    <MeetingList
+                        :meetings="futureMeetings"
+                        type="future"
+                    />
+                </div>
+
+                <div>
+                    <h3>Compromissos passados</h3>
+                    <MeetingList
+                        :meetings="pastMeetings"
+                        type="past"
+                        style="opacity: 0.5;"
+                    />
+                </div>
             </div>
         </div>
     </main>
