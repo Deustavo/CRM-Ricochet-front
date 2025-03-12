@@ -1,17 +1,24 @@
 import { reactive, computed } from 'vue';
-import mockMeeting from './__mockMeetings__.json'
+// import mockMeeting from './__mockMeetings__.json';
 
 interface MeetingType {
     id: number;
     title: string;
-    date: string;
-    location: string;
-    link: string;
-    endDate: string;
+    description: string;
+    start_time: string;
+    end_time: string;
+    meeting_link: string;
+    attendees: AttendeesType[];
+}
+
+type AttendeesType = {
+    id: number;
+    name: string;
+    email: string;
 }
 
 const state = reactive({
-    meetings: mockMeeting as MeetingType[],
+    meetings: [] as MeetingType[],
 });
 
 export const useMeetings = () => {
@@ -20,19 +27,19 @@ export const useMeetings = () => {
 
     const todayMeetings = computed(() => {
         return state.meetings.filter(meeting => {
-            const meetingDate = new Date(meeting.date);
+            const meetingDate = new Date(meeting.start_time);
             meetingDate.setHours(0, 0, 0, 0);
             return meetingDate.getTime() === today.getTime();
         });
     });
 
     const pastMeetings = computed(() => {
-        return state.meetings.filter(meeting => new Date(meeting.date) < today);
+        return state.meetings.filter(meeting => new Date(meeting.start_time) < today);
     });
 
     const futureMeetings = computed(() => {
         return state.meetings.filter(meeting => {
-            const meetingDate = new Date(meeting.date);
+            const meetingDate = new Date(meeting.start_time);
             meetingDate.setHours(0, 0, 0, 0);
             return meetingDate.getTime() !== today.getTime() && meetingDate > today;
         });

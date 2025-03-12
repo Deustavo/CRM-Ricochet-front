@@ -5,10 +5,17 @@ const { timeUntilEvent } = useMeetings();
 export interface MeetingType {
     id: number;
     title: string;
-    date: string;
-    location: string;
-    link: string;
-    endDate: string;
+    description: string;
+    start_time: string;
+    end_time: string;
+    meeting_link: string;
+    attendees: AttendeesType[];
+}
+
+type AttendeesType = {
+    id: number;
+    name: string;
+    email: string;
 }
 
 const props = defineProps({
@@ -58,7 +65,7 @@ const openLink = (link: string): void => {
         >
             <b>
                 <span class="badge rounded-pill bg-secondary">
-                    {{ timeUntilEvent(meeting.date, meeting.endDate) }}
+                    {{ timeUntilEvent(meeting.start_time, meeting.end_time) }}
                 </span>
             </b>
 
@@ -66,23 +73,23 @@ const openLink = (link: string): void => {
 
             <p>
                 <i class="pi pi-clock" />
-                <span>{{ getHour(meeting.date) }}</span>
+                <span>{{ getHour(meeting.start_time) }}</span>
             </p>
 
             <p>
                 <i class="pi pi-calendar" />
-                <span>{{ getDate(meeting.date) }}</span>
+                <span>{{ getDate(meeting.start_time) }}</span>
             </p>
             
-            <p>
+            <!-- <p>
                 <i class="pi pi-map" />
                 <span>{{ meeting.location }}</span>
-            </p>
+            </p> -->
 
             <button
                 class="button--2 mb-2 mt-1"
-                v-if="showLink(meeting.link)"
-                @click="() => openLink(meeting.link)"
+                v-if="showLink(meeting.meeting_link)"
+                @click="() => openLink(meeting.meeting_link)"
             >
                 Acessar reunião online
             </button>

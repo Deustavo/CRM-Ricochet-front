@@ -5,10 +5,17 @@ const { timeUntilEvent } = useMeetings();
 export interface MeetingType {
     id: number;
     title: string;
-    date: string;
-    location: string;
-    link: string;
-    endDate: string;
+    description: string;
+    start_time: string;
+    end_time: string;
+    meeting_link: string;
+    attendees: AttendeesType[];
+}
+
+type AttendeesType = {
+    id: number;
+    name: string;
+    email: string;
 }
 
 const props = defineProps({
@@ -42,7 +49,7 @@ const getDate = (date: string): string => {
  * @param link 
  */
 const showLink = (meeting: MeetingType): boolean => {
-    return (timeUntilEvent(meeting.date, meeting.endDate) === 'Em andamento');
+    return (timeUntilEvent(meeting.start_time, meeting.end_time) === 'Em andamento');
 };
 
 const openLink = (link: string): void => {
@@ -63,7 +70,7 @@ const openLink = (link: string): void => {
                         v-if="showLink(meeting)"
                         class="badge rounded-pill bg-primary"
                         style="border: none;"
-                        @click="() => openLink(meeting.link)"
+                        @click="() => openLink(meeting.meeting_link)"
                     >
                         Acessar reunião online
                     </button>
@@ -71,7 +78,7 @@ const openLink = (link: string): void => {
                     v-else
                         class="badge rounded-pill bg-secondary"
                     >
-                        {{ timeUntilEvent(meeting.date, meeting.endDate) }}
+                        {{ timeUntilEvent(meeting.start_time, meeting.end_time) }}
                     </span>
                 </b>
             </div>
@@ -79,18 +86,18 @@ const openLink = (link: string): void => {
             <div class="meeting__details">
                 <p>
                     <i class="pi pi-clock" />
-                    <span>{{ getHour(meeting.date) }}</span>
+                    <span>{{ getHour(meeting.start_time) }}</span>
                 </p>
 
                 <p>
                     <i class="pi pi-calendar" />
-                    <span>{{ getDate(meeting.date) }}</span>
+                    <span>{{ getDate(meeting.start_time) }}</span>
                 </p>
                 
-                <p>
+                <!-- <p>
                     <i class="pi pi-map" />
                     <span>{{ meeting.location }}</span>
-                </p>
+                </p> -->
             </div>
         </li>
     </ul>
