@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import api from "@/api";
 
 const newUser = ref({
     name: '',
@@ -8,24 +9,31 @@ const newUser = ref({
     password_confirmation: '',
 });
 
-const registerUser = () => {
-    // Add your registration logic here
-    console.log(newUser.value);
+const registerUser = async (event: Event) => {
+    event.preventDefault();
+
+    const body = {
+        name: newUser.value.name,
+        email: newUser.value.email,
+        password: newUser.value.password,
+    };
+
+    await api.register(body);
 };
 
+const hasEmptyField = computed(() => (
+    !newUser.value.name ||
+    !newUser.value.email ||
+    !newUser.value.password ||
+    !newUser.value.password_confirmation
+));
+
+const passwordMismatch = computed(() =>(
+    newUser.value.password !== newUser.value.password_confirmation
+));
+
 const isDisabled = computed(() => {
-    const hasEmptyField = (
-        !newUser.value.name ||
-        !newUser.value.email ||
-        !newUser.value.password ||
-        !newUser.value.password_confirmation
-    );
-
-    const passwordMismatch = (
-        newUser.value.password !== newUser.value.password_confirmation
-    );
-
-    return hasEmptyField || passwordMismatch;
+    return hasEmptyField.value || passwordMismatch.value;
 });
 </script>
 
@@ -47,10 +55,13 @@ const isDisabled = computed(() => {
                     <label for="password">Senha:</label>
                     <input type="password" id="password" v-model="newUser.password" required />
                 </div>
-                <div class="input__container mb-4">
+                <div class="input__container mb-2">
                     <label for="password_confirmation">Confirme a Senha:</label>
                     <input type="password" id="password_confirmation" v-model="newUser.password_confirmation" required />
+                    <p v-if="passwordMismatch" class="text-danger">As senhas não coincidem</p>
+                    <p v-else class="mb-4"></p> 
                 </div>
+
                 <button class="button--1 mb-4" type="submit" :disabled="isDisabled">Cadastrar</button>
             </form>
 

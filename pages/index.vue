@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { toast } from 'vue3-toastify';
 import { useSession } from "@/store/useSession";
+import api from "@/api";
 
 const email = ref('teste@teste.com');
 const password = ref('teste@teste.com');
 const loading = ref(true);
-const { setUser, fetchUserData } = useSession();
+const { fetchUserData } = useSession();
 
 onMounted(async () => {
     const token = sessionStorage.getItem('@token');
@@ -19,34 +19,15 @@ onMounted(async () => {
     fetchUserData(token);
 });
 
-interface ResponseData {
-    token: string;
-    name: string;
-    email: string;
-}
-
 const handleSubmit = async (event: Event) => {
     event.preventDefault();
 
-    try {
-        const data: ResponseData = await $fetch('http://localhost:8000/api/login', {
-            method: 'POST',
-            body: {
-                email: email.value,
-                password: password.value,
-            }
-        });
+    const body = {
+        email: email.value,
+        password: password.value,
+    };
 
-        setUser({
-            token: data.token,
-            name: data.name,
-            email: data.email,
-        });
-
-        navigateTo('/dashboard');
-    } catch (error) {
-        toast.error('Houve um erro ao fazer o login!');
-    }
+    await api.login(body);
 };
 </script>
 
