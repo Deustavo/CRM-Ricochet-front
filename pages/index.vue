@@ -56,13 +56,24 @@ const handleSubmit = async (event: Event) => {
             <img class="w-100 mb-5" src="/public/img/logo-ricochet360-sm.png" />
             
             <form @submit.prevent="handleSubmit">
-                <div class="d-flex flex-column mb-3">
+                <div class="input__container">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" v-model="email" required />
+                    <input
+                        type="email"
+                        id="email"
+                        v-model="email"
+                        placeholder="exemplo@email.com"
+                        required
+                    />
                 </div>
-                <div class="d-flex flex-column mb-5">
+                <div class="input__container mb-4">
                     <label for="password">Password:</label>
-                    <input type="password" id="password" v-model="password" required />
+                    <input
+                        type="password"
+                        id="password"
+                        v-model="password"
+                        required
+                    />
                 </div>
                 <button class="button--1 mb-4" type="submit">Login</button>
             </form>
