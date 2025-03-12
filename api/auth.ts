@@ -14,7 +14,7 @@ interface BodyLoginType {
     password: string;
 }
 
-export const login = async (body: BodyLoginType) => {
+const login = async (body: BodyLoginType) => {
     try {
         const data: ResponseLoginType = await $fetch('http://localhost:8000/api/login', {
             method: 'POST',
@@ -45,7 +45,7 @@ interface BodyRegisterType {
     password: string;
 }
 
-export const register = async (body: BodyRegisterType) => {
+const register = async (body: BodyRegisterType) => {
     try {
         const data: ResponseRegisterType = await $fetch('http://localhost:8000/api/register', {
             method: 'POST',
@@ -62,4 +62,9 @@ export const register = async (body: BodyRegisterType) => {
     } catch (error) {
         toast.error('Houve um erro ao fazer o cadastro!');
     }
+}
+
+export default {
+    login,
+    register,
 }

@@ -18,7 +18,7 @@ const registerUser = async (event: Event) => {
         password: newUser.value.password,
     };
 
-    await api.register(body);
+    await api.auth.register(body);
 };
 
 const hasEmptyField = computed(() => (

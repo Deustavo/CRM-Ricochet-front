@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useSession } from "@/store/useSession";
 import api from "@/api";
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const email = ref('teste@teste.com');
 const password = ref('teste@teste.com');
 const loading = ref(true);
-const { fetchUserData } = useSession();
 
 onMounted(async () => {
     const token = sessionStorage.getItem('@token');
@@ -16,7 +17,12 @@ onMounted(async () => {
         return;
     }
 
-    fetchUserData(token);
+    try {
+        await api.user.get(token);
+        router.push('/dashboard');
+    } catch (error) {
+        loading.value = false;
+    }
 });
 
 const handleSubmit = async (event: Event) => {
@@ -27,7 +33,7 @@ const handleSubmit = async (event: Event) => {
         password: password.value,
     };
 
-    await api.login(body);
+    await api.auth.login(body);
 };
 </script>
 

@@ -1,6 +1,7 @@
-import { login, register } from './auth';
+import auth from './auth';
+import user  from './user';   
 
 export default {
-    login,
-    register,
+    auth,
+    user,
 };

@@ -1,12 +1,11 @@
-import { useSession } from "@/store/useSession";
+import api from "@/api";
 
 export default defineNuxtRouteMiddleware((to, from) => {
-    const { fetchUserData } = useSession();
     const token = sessionStorage.getItem('@token');
 
     if (!token) {
         return navigateTo('/');
     }
 
-    fetchUserData(token);
+    api.user.get(token);
 })

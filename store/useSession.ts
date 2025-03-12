@@ -15,25 +15,6 @@ const emptyUser = {
 const user = ref<UserSession>(emptyUser);
 
 export const useSession = () => {
-    const fetchUserData = async (token: string) => {
-        try {
-            const data: UserSession = await $fetch('http://localhost:8000/api/user', {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            setUser({
-                token: token,
-                name: data.name,
-                email: data.email,
-            });
-        } catch (error) {
-            logout();
-        }
-    };
-
     const setUser = (newUser: UserSession) => {
         user.value = {
             ...user.value,
@@ -52,7 +33,6 @@ export const useSession = () => {
     return {
         user,
         setUser,
-        fetchUserData,
         logout,
     };
 };
