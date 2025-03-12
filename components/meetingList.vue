@@ -58,36 +58,40 @@ const openLink = (link: string): void => {
             class="meeting__item"
             v-for="meeting in props.meetings" :key="meeting.id"
         >
-            <b>
-                <span class="badge rounded-pill bg-secondary">
-                    {{ timeUntilEvent(meeting.date, meeting.endDate) }}
-                </span>
-            </b>
+            <div class="meeting__title">
+                <h4>{{ meeting.title }}</h4>
+                <b>
+                    <span class="badge rounded-pill bg-secondary">
+                        {{ timeUntilEvent(meeting.date, meeting.endDate) }}
+                    </span>
+                </b>
+            </div>
 
-            <!-- <h4 class="meeting__title">{{ meeting.title }}</h4> -->
+            <div class="meeting__details">
+                <p>
+                    <i class="pi pi-clock" />
+                    <span>{{ getHour(meeting.date) }}</span>
+                </p>
 
-            <!-- <p>
-                <i class="pi pi-clock" />
-                <span>{{ getHour(meeting.date) }}</span>
-            </p> -->
-
-            <!-- <p>
-                <i class="pi pi-calendar" />
-                <span>{{ getDate(meeting.date) }}</span>
-            </p> -->
-            
-            <!-- <p>
-                <i class="pi pi-map" />
-                <span>{{ meeting.location }}</span>
-            </p> -->
-
-            <!-- <button
-                class="button--2 mb-2 mt-1"
-                v-if="showLink(meeting.link)"
-                @click="() => openLink(meeting.link)"
-            >
-                Acessar reunião online
-            </button> -->
+                <p>
+                    <i class="pi pi-calendar" />
+                    <span>{{ getDate(meeting.date) }}</span>
+                </p>
+                
+                <p>
+                    <i class="pi pi-map" />
+                    <span>{{ meeting.location }}</span>
+                </p>
+<!-- 
+                <div>
+                    <button
+                        v-if="showLink(meeting.link)"
+                        @click="() => openLink(meeting.link)"
+                    >
+                        Acessar reunião online
+                    </button>
+                </div> -->
+            </div>
         </li>
     </ul>
 </template>
