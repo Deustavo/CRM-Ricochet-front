@@ -12,11 +12,11 @@ export interface MeetingType {
 
 const props = defineProps({
     meetings: {
-        type: Array as MeetingType[],
+        type: Array as () => MeetingType[],
         required: true
     },
     type: {
-        type: String as [ 'today' | 'future' | 'past' ],
+        type: String,
         required: false
     }
 });
@@ -41,7 +41,11 @@ const getDate = (date: string): string => {
  * @param link 
  */
 const showLink = (link: string): boolean => {
-    return link && props.type === 'today';
+    return !!link && props.type === 'today';
+};
+
+const openLink = (link: string): void => {
+    window.open(link, '_blank');
 };
 
 /**
@@ -108,9 +112,9 @@ const timeUntilEvent = (date: string, endDate: string): string => {
             </p>
 
             <button
-                class="button-2 mb-2 mt-1"
+                class="button--2 mb-2 mt-1"
                 v-if="showLink(meeting.link)"
-                @click="() => window.open(meeting.link)"
+                @click="() => openLink(meeting.link)"
             >
                 Acessar reunião online
             </button>

@@ -64,7 +64,7 @@ const handleSubmit = async (event: Event) => {
                     <label for="password">Password:</label>
                     <input type="password" id="password" v-model="password" required />
                 </div>
-                <button class="button-1 mb-4" type="submit">Login</button>
+                <button class="button--1 mb-4" type="submit">Login</button>
             </form>
 
             <a href="/register" class="d-block text-center">Ou cadastre-se aqui</a>
