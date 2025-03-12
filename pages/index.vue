@@ -6,28 +6,30 @@ import { useSession } from "@/store/useSession";
 const email = ref('teste@teste.com');
 const password = ref('teste@teste.com');
 const loading = ref(true);
-const { setUser } = useSession();
+const { setUser, fetchUserData } = useSession();
 
-onMounted(() => {
-    if (hasValidToken()) {
-        return navigateTo('/dashboard');
+onMounted(async () => {
+    const token = sessionStorage.getItem('@token');
+    
+    if (!token) {
+        loading.value = false;
+        return;
     }
 
-    loading.value = false;
+    fetchUserData(token);
 });
 
-/**
- * Check if user has a saved session
- */
-const hasValidToken = (): boolean => {
-    return false;
+interface ResponseData {
+    token: string;
+    name: string;
+    email: string;
 }
 
 const handleSubmit = async (event: Event) => {
     event.preventDefault();
 
     try {
-        const data: { token: string } = await $fetch('http://localhost:8000/api/login', {
+        const data: ResponseData = await $fetch('http://localhost:8000/api/login', {
             method: 'POST',
             body: {
                 email: email.value,
@@ -35,17 +37,15 @@ const handleSubmit = async (event: Event) => {
             }
         });
 
-        console.log(data);
-
         setUser({
-            token: `Bearer ${data.token}`,
-            isAuthenticated: true,
+            token: data.token,
+            name: data.name,
+            email: data.email,
         });
 
         navigateTo('/dashboard');
     } catch (error) {
         toast.error('Houve um erro ao fazer o login!');
-        // toast.error('Email ou senha inválidos!');
     }
 };
 </script>

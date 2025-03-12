@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 import { useMeetings } from "@/store/useMeetings";
 const { timeUntilEvent } = useMeetings();
 
@@ -44,7 +42,6 @@ const getDate = (date: string): string => {
  * @param link 
  */
 const showLink = (meeting: MeetingType): boolean => {
-    console.log(timeUntilEvent(meeting.date, meeting.endDate))
     return (timeUntilEvent(meeting.date, meeting.endDate) === 'Em andamento');
 };
 

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
 import { useMeetings } from "@/store/useMeetings";
 const { timeUntilEvent } = useMeetings();
 

@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 
 import { useSession } from "@/store/useSession";
-const { logout } = useSession();
+const { logout, user } = useSession();
 
 import { useMeetings } from "@/store/useMeetings";
 const { 
@@ -14,7 +14,7 @@ const {
 /**
  * Modo de vizualização dos compromissos
  */
-const meetingsView = ref("list");
+const meetingsView = ref("grid");
 
 const setMeetingView = (value: string) => {
     meetingsView.value = value;
@@ -60,9 +60,9 @@ definePageMeta({
 
         <div class="pt-4 pb-4">
             <div class="d-flex justify-content-between align-items-center">
-                <h2>Olá, Gustavo</h2>
+                <h2>Olá, {{ user.name }}</h2>
                 <div class="dashboard__views">
-                    <p class="me-2">Vizualização:</p>
+                    <p class="me-2">Visualização:</p>
                     <div class="dashboard__views__types">
                         <div
                             class="dashboard__views__type"
