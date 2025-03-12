@@ -1,4 +1,5 @@
 import { ref } from 'vue';
+import api from '@/api';
 
 interface UserSession {
     token: string | null;
@@ -24,7 +25,8 @@ export const useSession = () => {
         sessionStorage.setItem('@token', newUser.token || '');
     };
 
-    const logout = () => {
+    const logout = async () => {
+        await api.auth.logout();
         user.value = emptyUser;
         sessionStorage.removeItem('@token');
         window.location.href = '/';

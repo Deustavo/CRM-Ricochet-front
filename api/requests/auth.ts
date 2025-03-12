@@ -75,7 +75,25 @@ const register = async (body: BodyRegisterType) => {
     }
 }
 
+const logout = async () => {
+    const token = sessionStorage.getItem('@token');
+
+    try {
+        await $fetch('http://localhost:8000/api/logout', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        console.log("Sessão encerrada!");
+    } catch (error) {
+        console.log(error);
+    }    
+};
+
 export default {
     login,
     register,
+    logout,
 }
