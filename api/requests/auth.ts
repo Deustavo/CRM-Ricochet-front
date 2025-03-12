@@ -14,6 +14,12 @@ interface BodyLoginType {
     password: string;
 }
 
+interface ErrorResponseType {
+    response: {
+        status: number;
+    }
+}
+
 const login = async (body: BodyLoginType) => {
     try {
         const data: ResponseLoginType = await $fetch('http://localhost:8000/api/login', {
@@ -59,7 +65,12 @@ const register = async (body: BodyRegisterType) => {
         if (data.status === 201) {
             login({ email: body.email, password: body.password });
         }
-    } catch (error) {
+    } catch (error: ErrorResponseType | any) {
+        if (error.response.status === 422) {
+            toast.error('Usuário já cadastrado!');
+            return;
+        }
+
         toast.error('Houve um erro ao fazer o cadastro!');
     }
 }

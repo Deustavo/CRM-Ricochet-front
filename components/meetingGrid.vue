@@ -24,8 +24,8 @@ const props = defineProps({
         required: true
     },
     type: {
-        type: String,
-        required: false
+        type: String as () => 'today' | 'future' | 'past',
+        required: true
     }
 });
 
@@ -55,10 +55,16 @@ const showLink = (link: string): boolean => {
 const openLink = (link: string): void => {
     window.open(link, '_blank');
 };
+
+const typeText = {
+    today: 'hoje',
+    future: 'programadas',
+    past: 'passadas'
+}
 </script>
 
 <template>
-    <ul class="meeting__grid">
+    <ul class="meeting__grid" v-if="props.meetings.length">
         <li
             class="meeting__item"
             v-for="meeting in props.meetings" :key="meeting.id"
@@ -95,6 +101,12 @@ const openLink = (link: string): void => {
             </button>
         </li>
     </ul>
+    <div
+        class="d-flex justify-content-center align-items-center pt-4 pb-5"
+        v-else
+    >
+        <p>Você não possui reuniões {{ typeText[props.type] }}</p>
+    </div>
 </template>
 
 <style scoped>

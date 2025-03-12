@@ -45,8 +45,8 @@ export const useMeetings = () => {
         });
     });
 
-    const addMeeting = (meeting: MeetingType) => {
-        state.meetings.push(meeting);
+    const setMeetings = (meetings: MeetingType[]) => {
+        state.meetings = meetings;
     };
 
     /**
@@ -87,7 +87,7 @@ export const useMeetings = () => {
         todayMeetings,
         pastMeetings,
         futureMeetings,
-        addMeeting,
+        setMeetings,
         timeUntilEvent,
     };
 };

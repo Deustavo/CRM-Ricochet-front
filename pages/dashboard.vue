@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import api from '@/api';
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 import { useSession } from "@/store/useSession";
 const { logout, user } = useSession();
@@ -22,6 +25,16 @@ const setMeetingView = (value: string) => {
 
 definePageMeta({
     middleware: ['auth'],
+});
+
+onMounted(() => {
+    const token = sessionStorage.getItem('@token');
+
+    if (!token) {
+        return router.push('/login');
+    }
+
+    api.meetings.getAll(token);
 });
 </script>
 

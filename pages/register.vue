@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import api from "@/api";
+import api from "~/api";
 
 const newUser = ref({
     name: '',
