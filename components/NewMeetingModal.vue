@@ -1,22 +1,55 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-
-export interface MeetingType {
-    title: string;
-    description: string;
-    start_time: string;
-    end_time: string;
-    meeting_link: string;
-    attendees: [];
-}
+import api from '@/api';
 
 const newMeeting = ref({
-    title: '',
-    description: '',
-    start_time: '',
-    end_time: '',
-    meeting_link: '',
-    attendees: [],
+    title: 'teste',
+    description: 'aaa',
+    start_time: '2025-03-12T20:00:00',
+    end_time: '2025-03-12T21:00:00',
+    meeting_link: 'https://gatry.com/',
+    attendees: ["1"],
+});
+
+const closeModal = () => {
+  const closeButton = document.getElementById('close');
+  if (closeButton) {
+    closeButton.click();
+  }
+};
+
+const createMeeting = async () => {
+  const token = sessionStorage.getItem('@token');
+  
+  if (token) {
+    await api.meetings.create(token, newMeeting.value);
+    closeModal();
+  }
+};
+
+const hasEmptyField = computed(() => {
+  return (
+    !newMeeting.value.title ||
+    !newMeeting.value.description ||
+    !newMeeting.value.start_time ||
+    !newMeeting.value.end_time ||
+    !newMeeting.value.meeting_link ||
+    newMeeting.value.attendees.length === 0
+  );
+});
+
+const isValidDate = computed(() => {
+  const start = new Date(newMeeting.value.start_time);
+  const end = new Date(newMeeting.value.end_time);
+
+  return start < end;
+});
+
+const isDisabled = computed(() => {
+    return (
+      hasEmptyField.value ||
+      !isValidDate.value
+    );
 });
 </script>
 
@@ -26,36 +59,38 @@ const newMeeting = ref({
       <div class="modal-content">
         <div class="modal-header">
           <h5 id="newMeetingModalLabel">Agendar nova reunião</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" id="close" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
             <form>
-              <div class="mb-3">
+              <div class="input__container">
                 <label for="meetingTitle" class="form-label">Titulo da reunião</label>
                 <input type="text" class="form-control" id="meetingTitle" v-model="newMeeting.title">
               </div>
 
-              <div class="mb-3">
+              <div class="input__container">
                 <label for="meetingDescription" class="form-label">Descrição</label>
                 <textarea class="form-control" id="meetingDescription" v-model="newMeeting.description"></textarea>
               </div>
-
-              <div class="mb-3">
+              
+              <div class="input__container">
                 <label for="meetingStartTime" class="form-label">Inicio</label>
                 <input type="datetime-local" class="form-control" id="meetingStartTime" v-model="newMeeting.start_time">
               </div>
-
-              <div class="mb-3">
+              
+              <div class="input__container mb-2">
                 <label for="meetingEndTime" class="form-label">Fim</label>
                 <input type="datetime-local" class="form-control" id="meetingEndTime" v-model="newMeeting.end_time">
+                <p v-if="!isValidDate" class="text-danger">O fim da reunião deve ser depois do inicio</p>
+                <p v-else class="mb-4"></p>
               </div>
-
-              <div class="mb-3">
+              
+              <div class="input__container">
                 <label for="meetingLink" class="form-label">Link da reunião</label>
                 <input type="url" class="form-control" id="meetingLink" v-model="newMeeting.meeting_link">
               </div>
 
-              <div class="mb-3">
+              <div class="input__container">
                 <label for="meetingAttendees" class="form-label">Participantes</label>
                 <input type="text" class="form-control" id="meetingAttendees" v-model="newMeeting.attendees">
               </div>
@@ -63,8 +98,14 @@ const newMeeting = ref({
         </div>
         <div class="modal-footer">
           <div class="d-flex">
-            <button class="button--2 me-3" data-bs-dismiss="modal">Close</button>
-            <button class="button--1">Save changes</button>
+            <!-- <button class="button--2 me-3" data-bs-dismiss="modal">Close</button> -->
+            <button
+              @click="createMeeting"
+              class="button--1"
+              :disabled="isDisabled"
+            >
+              Criar reunião
+            </button>
           </div>
         </div>
       </div>

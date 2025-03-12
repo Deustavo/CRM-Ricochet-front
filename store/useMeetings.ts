@@ -1,5 +1,4 @@
 import { reactive, computed } from 'vue';
-// import mockMeeting from './__mockMeetings__.json';
 
 interface MeetingType {
     id: number;

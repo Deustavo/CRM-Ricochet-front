@@ -97,7 +97,7 @@ const typeText = {
                 v-if="showLink(meeting.meeting_link)"
                 @click="() => openLink(meeting.meeting_link)"
             >
-                Acessar reunião online
+                Acessar reunião
             </button>
         </li>
     </ul>

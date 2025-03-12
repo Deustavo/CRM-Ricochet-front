@@ -78,7 +78,7 @@ const typeText = {
                         style="border: none;"
                         @click="() => openLink(meeting.meeting_link)"
                     >
-                        Acessar reunião online
+                        Acessar reunião
                     </button>
                     <span
                     v-else

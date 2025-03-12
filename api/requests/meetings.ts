@@ -34,6 +34,35 @@ const getAll = async (token: string) => {
     }
 }
 
+interface NewMeetingType {
+    title: string;
+    description: string;
+    start_time: string;
+    end_time: string;
+    meeting_link: string;
+    attendees: string[];
+}
+
+const create = async (token: string, body: NewMeetingType) => {
+    try {
+        await $fetch('http://localhost:8000/api/meetings', {
+            method: 'POST',
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body,
+        });
+
+        getAll(token);
+        toast.success('Reunião criada com sucesso!');
+    } catch (error) {
+        toast.error('Houve um erro ao criar a reunião!');
+    }
+}
+
 export default {
     getAll,
+    create
 };
