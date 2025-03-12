@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { toast } from 'vue3-toastify';
-import store from "store2";
 import { useSession } from "@/store/useSession";
 
-const email = ref('');
-const password = ref('');
+const email = ref('teste@teste.com');
+const password = ref('teste@teste.com');
 const loading = ref(true);
 const { setUser } = useSession();
 
 onMounted(() => {
-    if (hasSavedSession()) {
+    if (hasValidToken()) {
         return navigateTo('/dashboard');
     }
 
@@ -20,32 +19,33 @@ onMounted(() => {
 /**
  * Check if user has a saved session
  */
-const hasSavedSession = (): boolean => {
-    const savedUser = JSON.parse(store.session("@user"));
-    return savedUser?.isAuthenticated;
+const hasValidToken = (): boolean => {
+    return false;
 }
 
 const handleSubmit = async (event: Event) => {
     event.preventDefault();
 
     try {
-        if(email.value !== 'teste@teste.com') {
-            throw new Error();
-        }
+        const data: { token: string } = await $fetch('http://localhost:8000/api/login', {
+            method: 'POST',
+            body: {
+                email: email.value,
+                password: password.value,
+            }
+        });
 
-        // const data = useFetch('/api/login', {
-        //     method: 'POST',
-        //     body: JSON.stringify({ email: email.value, password: password.value }),
-        // });
+        console.log(data);
 
         setUser({
-            id: 1,
-            token: 'TOKEN_EXEMPLE',
+            token: `Bearer ${data.token}`,
+            isAuthenticated: true,
         });
 
         navigateTo('/dashboard');
     } catch (error) {
-        toast.error('Email ou senha inválidos!');
+        toast.error('Houve um erro ao fazer o login!');
+        // toast.error('Email ou senha inválidos!');
     }
 };
 </script>
@@ -70,7 +70,7 @@ const handleSubmit = async (event: Event) => {
             <a href="/register" class="d-block text-center">Ou cadastre-se aqui</a>
         </div>
 
-        <div class="loading-spinning" v-else />
+        <div class="loading-dots" v-else />
     </NuxtLayout>
 </template>
 

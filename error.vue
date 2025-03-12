@@ -6,5 +6,7 @@ router.push('/');
 </script>
 
 <template>
-    <p>Página não encontrada</p>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="loading-dots" />
+    </div>
 </template>

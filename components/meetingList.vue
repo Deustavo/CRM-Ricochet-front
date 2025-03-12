@@ -94,15 +94,6 @@ const openLink = (link: string): void => {
                     <i class="pi pi-map" />
                     <span>{{ meeting.location }}</span>
                 </p>
-<!-- 
-                <div>
-                    <button
-                        v-if="showLink(meeting.link)"
-                        @click="() => openLink(meeting.link)"
-                    >
-                        Acessar reunião online
-                    </button>
-                </div> -->
             </div>
         </li>
     </ul>

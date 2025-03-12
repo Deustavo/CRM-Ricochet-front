@@ -118,7 +118,7 @@ definePageMeta({
                     />
                 </div>
 
-                <div>
+                <div class="mt-4">
                     <h3>Compromissos futuros</h3>
                     <MeetingList
                         :meetings="futureMeetings"
@@ -126,7 +126,7 @@ definePageMeta({
                     />
                 </div>
 
-                <div>
+                <div class="mt-4">
                     <h3>Compromissos passados</h3>
                     <MeetingList
                         :meetings="pastMeetings"
