@@ -92,6 +92,10 @@ p {
 
 
 // Overwriting bootstrap
+.bg-primary {
+    background-color: var(--color-1) !important;
+}
+
 .bg-secondary {
     background-color: var(--color-3) !important;
 }

@@ -43,8 +43,9 @@ const getDate = (date: string): string => {
  * Valida se deve exibir o link da reunião
  * @param link 
  */
-const showLink = (link: string): boolean => {
-    return !!link && props.type === 'today';
+const showLink = (meeting: MeetingType): boolean => {
+    console.log(timeUntilEvent(meeting.date, meeting.endDate))
+    return (timeUntilEvent(meeting.date, meeting.endDate) === 'Em andamento');
 };
 
 const openLink = (link: string): void => {
@@ -61,7 +62,18 @@ const openLink = (link: string): void => {
             <div class="meeting__title">
                 <h4>{{ meeting.title }}</h4>
                 <b>
-                    <span class="badge rounded-pill bg-secondary">
+                    <button
+                        v-if="showLink(meeting)"
+                        class="badge rounded-pill bg-primary"
+                        style="border: none;"
+                        @click="() => openLink(meeting.link)"
+                    >
+                        Acessar reunião online
+                    </button>
+                    <span
+                    v-else
+                        class="badge rounded-pill bg-secondary"
+                    >
                         {{ timeUntilEvent(meeting.date, meeting.endDate) }}
                     </span>
                 </b>
