@@ -36,6 +36,10 @@ onMounted(() => {
 
     api.meetings.getAll(token);
 });
+
+window.Echo.channel('meeting').listen('MeetingCreated', (e) => {
+    console.log("MeetingCreated:", e);
+});
 </script>
 
 <template>
