@@ -136,24 +136,27 @@ onBeforeUnmount(() => {
                 <input type="url" class="form-control" id="meetingLink" v-model="newMeeting.meeting_link" :disabled="loading">
               </div>
 
-              <div class="input__attendees" id="input-attendees">
+              <div class="input__container">
                 <label class="form-label">Participantes</label>
-                <div @click="toggleDropdownAttendees" class="input__attendees__selected-users">
-                  <span v-if="newMeeting.attendees.length === 0" class="text-gray-500">Selecione...</span>
-                  <span v-else>
-                    <span v-for="option in newMeeting.attendees" :key="option" class="input__attendees__selected-user">
-                      {{ userList[Number(option) - 1]?.name }}
+                <div class="input__attendees" id="input-attendees">
+                  <div @click="toggleDropdownAttendees" class="input__attendees__selected-users">
+                    <span v-if="newMeeting.attendees.length === 0" class="text-gray-500">Selecione...</span>
+                    <span v-else>
+                      <span v-for="option in newMeeting.attendees" :key="option" class="input__attendees__selected-user">
+                        {{ userList[Number(option) - 1]?.name }}
+                      </span>
                     </span>
-                  </span>
-                </div>
-                <div v-if="isDropdownOpen" class="input__attendees__dropdown" id="input-attendees-dropdown">
-                  <div
-                    v-for="(user, index) in userList"
-                    :key="index"
-                    @click="toggleSelectionAttendees(`${user.id}`)"
-                    class="input__attendees__dropdown__user"
-                  >
-                    {{ user.name }}
+                  </div>
+                  <div v-if="isDropdownOpen" class="input__attendees__dropdown" id="input-attendees-dropdown">
+                    <div
+                      v-for="(user, index) in userList"
+                      :key="index"
+                      @click="toggleSelectionAttendees(`${user.id}`)"
+                      class="input__attendees__dropdown__user"
+                      :class="{ 'user-selected': newMeeting.attendees.includes(`${user.id}`) }"
+                    >
+                      {{ user.name }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -198,10 +201,11 @@ onBeforeUnmount(() => {
     }
 
     &__selected-user {
+      display: inline-block;
       background-color: #bfdbfe;
       padding: 0.25rem 0.5rem ;
       border-radius: 0.25rem;
-      margin-right: 0.25rem;
+      margin: 0px 0.25rem 0.25rem 0px;
     }
 
     &__dropdown {
@@ -216,10 +220,21 @@ onBeforeUnmount(() => {
 
       &__user {
         padding: 0.5rem;
+        margin: 8px;
         cursor: pointer;
+        transition: all ease-in-out 200ms;
+        border-radius: 4px;
 
         &:hover {
-          background-color: #dbeafe;
+          background-color: var(--color-1);
+        }
+      }
+
+      .user-selected {
+        background-color: #dbeafe;
+
+        &:hover {
+          background-color: var(--color-1);
         }
       }
     }
