@@ -11,6 +11,11 @@ const newMeeting = ref({
     attendees: ["1"],
 });
 
+const loading = ref(false);
+const setLoading = (value: boolean) => {
+    loading.value = value;
+};
+
 const closeModal = () => {
   const closeButton = document.getElementById('close');
   const activeElement = document.activeElement as HTMLElement;
@@ -25,12 +30,15 @@ const closeModal = () => {
 };
 
 const createMeeting = async () => {
+  setLoading(true);
   const token = sessionStorage.getItem('@token');
   
   if (token) {
     await api.meetings.create(token, newMeeting.value);
     closeModal();
   }
+
+  setLoading(false);
 };
 
 const hasEmptyField = computed(() => {
@@ -54,7 +62,8 @@ const isValidDate = computed(() => {
 const isDisabled = computed(() => {
     return (
       hasEmptyField.value ||
-      !isValidDate.value
+      !isValidDate.value ||
+      loading.value
     );
 });
 </script>
@@ -71,34 +80,34 @@ const isDisabled = computed(() => {
             <form>
               <div class="input__container">
                 <label for="meetingTitle" class="form-label">Titulo da reunião</label>
-                <input type="text" class="form-control" id="meetingTitle" v-model="newMeeting.title">
+                <input type="text" class="form-control" id="meetingTitle" v-model="newMeeting.title" :disabled="loading">
               </div>
 
               <div class="input__container">
                 <label for="meetingDescription" class="form-label">Descrição</label>
-                <textarea class="form-control" id="meetingDescription" v-model="newMeeting.description"></textarea>
+                <textarea class="form-control" id="meetingDescription" v-model="newMeeting.description" :disabled="loading"></textarea>
               </div>
               
               <div class="input__container">
                 <label for="meetingStartTime" class="form-label">Inicio</label>
-                <input type="datetime-local" class="form-control" id="meetingStartTime" v-model="newMeeting.start_time">
+                <input type="datetime-local" class="form-control" id="meetingStartTime" v-model="newMeeting.start_time" :disabled="loading">
               </div>
               
               <div class="input__container mb-2">
                 <label for="meetingEndTime" class="form-label">Fim</label>
-                <input type="datetime-local" class="form-control" id="meetingEndTime" v-model="newMeeting.end_time">
+                <input type="datetime-local" class="form-control" id="meetingEndTime" v-model="newMeeting.end_time" :disabled="loading">
                 <p v-if="!isValidDate" class="text-danger">O fim da reunião deve ser depois do inicio</p>
                 <p v-else class="mb-4"></p>
               </div>
               
               <div class="input__container">
                 <label for="meetingLink" class="form-label">Link da reunião</label>
-                <input type="url" class="form-control" id="meetingLink" v-model="newMeeting.meeting_link">
+                <input type="url" class="form-control" id="meetingLink" v-model="newMeeting.meeting_link" :disabled="loading">
               </div>
 
               <div class="input__container">
                 <label for="meetingAttendees" class="form-label">Participantes</label>
-                <input type="text" class="form-control" id="meetingAttendees" v-model="newMeeting.attendees">
+                <input type="text" class="form-control" id="meetingAttendees" v-model="newMeeting.attendees" :disabled="loading">
               </div>
             </form>
         </div>
@@ -110,7 +119,12 @@ const isDisabled = computed(() => {
               class="button--1"
               :disabled="isDisabled"
             >
-              Criar reunião
+              <i
+                v-if="loading"
+                class="pi pi-spin pi-spinner"
+                style="min-width: 92px;"
+              />
+              <span v-else>Criar reunião</span>
             </button>
           </div>
         </div>

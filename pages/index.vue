@@ -7,13 +7,14 @@ const router = useRouter();
 
 const email = ref('gustavo@gustavo.com');
 const password = ref('gustavo@gustavo.com');
-const loading = ref(true);
+const loadingPage = ref(true);
+const loadingRequest = ref(false);
 
 onMounted(async () => {
     const token = sessionStorage.getItem('@token');
     
     if (!token) {
-        loading.value = false;
+        loadingPage.value = false;
         return;
     }
 
@@ -21,11 +22,12 @@ onMounted(async () => {
         await api.user.get(token);
         router.push('/dashboard');
     } catch (error) {
-        loading.value = false;
+        loadingPage.value = false;
     }
 });
 
 const handleSubmit = async (event: Event) => {
+    loadingRequest.value = true;
     event.preventDefault();
 
     const body = {
@@ -34,12 +36,13 @@ const handleSubmit = async (event: Event) => {
     };
 
     await api.auth.login(body);
+    loadingRequest.value = false;
 };
 </script>
 
 <template>
     <NuxtLayout name="login">
-        <div class="login__container" v-if="!loading">
+        <div class="login__container" v-if="!loadingPage">
             <img class="w-100 mb-5" src="/public/img/logo-ricochet360-sm.png" />
             
             <form @submit.prevent="handleSubmit">
@@ -50,6 +53,7 @@ const handleSubmit = async (event: Event) => {
                         id="email"
                         v-model="email"
                         placeholder="exemplo@email.com"
+                        :disabled="loadingRequest"
                         required
                     />
                 </div>
@@ -59,10 +63,22 @@ const handleSubmit = async (event: Event) => {
                         type="password"
                         id="password"
                         v-model="password"
+                        :disabled="loadingRequest"
                         required
                     />
                 </div>
-                <button class="button--1 mb-4" type="submit">Login</button>
+                <button
+                    class="button--1 mb-4"
+                    type="submit"
+                    :disabled="loadingRequest"
+                >
+                    <i
+                        v-if="loadingRequest"
+                        class="pi pi-spin pi-spinner"
+                        style="min-width: 92px;"
+                    />
+                    <span v-else>Login</span>
+                </button>
             </form>
 
             <a href="/register" class="d-block text-center">Ou cadastre-se aqui</a>

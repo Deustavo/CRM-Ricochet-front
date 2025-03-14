@@ -36,7 +36,7 @@ onMounted(() => {
 
 console.log("User:", user.value.id);
 
-window.Echo.channel('meeting').listen('MeetingCreated', (e) => {
+window.Echo.channel('meeting').listen('MeetingCreated', (e: any) => {
     console.log("MeetingCreated:", e);
 });
 </script>

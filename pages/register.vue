@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import api from "~/api";
+import api from "@/api";
 
 const newUser = ref({
     name: '',
@@ -9,7 +9,13 @@ const newUser = ref({
     password_confirmation: '',
 });
 
+const loading = ref(false);
+const setLoading = (value: boolean) => {
+    loading.value = value;
+};
+
 const registerUser = async (event: Event) => {
+    setLoading(true);
     event.preventDefault();
 
     const body = {
@@ -19,6 +25,7 @@ const registerUser = async (event: Event) => {
     };
 
     await api.auth.register(body);
+    setLoading(false);
 };
 
 const hasEmptyField = computed(() => (
@@ -33,7 +40,11 @@ const passwordMismatch = computed(() =>(
 ));
 
 const isDisabled = computed(() => {
-    return hasEmptyField.value || passwordMismatch.value;
+    return (
+        hasEmptyField.value ||
+        passwordMismatch.value ||
+        loading.value
+    );
 });
 </script>
 
@@ -45,19 +56,19 @@ const isDisabled = computed(() => {
             <form @submit.prevent="registerUser">
                 <div class="input__container">
                     <label for="name">Nome:</label>
-                    <input type="text" id="name" v-model="newUser.name" placeholder="Digite seu nome" required />
+                    <input type="text" id="name" v-model="newUser.name" placeholder="Digite seu nome" required :disabled="loading" />
                 </div>
                 <div class="input__container">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" v-model="newUser.email" placeholder="exemplo@email.com" required />
+                    <input type="email" id="email" v-model="newUser.email" placeholder="exemplo@email.com" required :disabled="loading" />
                 </div>
                 <div class="input__container">
                     <label for="password">Senha:</label>
-                    <input type="password" id="password" v-model="newUser.password" required />
+                    <input type="password" id="password" v-model="newUser.password" required :disabled="loading" />
                 </div>
                 <div class="input__container mb-2">
                     <label for="password_confirmation">Confirme a Senha:</label>
-                    <input type="password" id="password_confirmation" v-model="newUser.password_confirmation" required />
+                    <input type="password" id="password_confirmation" v-model="newUser.password_confirmation" required :disabled="loading" />
                     <p v-if="passwordMismatch" class="text-danger">As senhas não coincidem</p>
                     <p v-else class="mb-4"></p> 
                 </div>

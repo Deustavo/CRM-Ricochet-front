@@ -98,6 +98,12 @@ a { color: var(--color-1) }
         &:focus {
             border: 1px solid var(--color-2);
         }
+
+        &:disabled {
+            border: 1px solid #666;
+            background-color: #f0f0f0;
+            color: #666;
+        }
     }
 }
 
