@@ -22,7 +22,7 @@ type AttendeesType = {
     email: string;
 }
 
-const getAll = async (token: string) => {
+const getAll = async () => {
     const userId = user.value.id;
     const path = `http://localhost:8000/api/meetings/user/${userId}`;
 
@@ -30,7 +30,7 @@ const getAll = async (token: string) => {
         const data: MeetingType[] = await $fetch(path, {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${sessionStorage.getItem('@token')}`,
             },
         });
 
@@ -61,7 +61,7 @@ const create = async (token: string, body: NewMeetingType) => {
             body,
         });
 
-        getAll(token);
+        getAll();
         toast.success('Reunião criada com sucesso!');
     } catch (error) {
         toast.error('Houve um erro ao criar a reunião!');

@@ -8,5 +8,5 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
 
     await api.user.get(token);
-    api.meetings.getAll(token);
+    api.meetings.getAll();
 })

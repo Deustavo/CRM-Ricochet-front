@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { toast } from 'vue3-toastify';
 import { ref } from 'vue';
+import api from '@/api';
+
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
@@ -22,6 +25,15 @@ const setMeetingView = (value: string) => {
     meetingsView.value = value;
 }
 
+const isUserAttendee = (attendees: Array<string>) => {
+    return attendees.some((attendee: any) => attendee == user.value.id);
+}
+
+const notifyAttendee = (title: string) => {
+    toast.info(`Nova reunião: ${title}`);
+    api.meetings.getAll();
+}
+
 definePageMeta({
     middleware: ['auth'],
 });
@@ -34,10 +46,14 @@ onMounted(() => {
     }
 });
 
-console.log("User:", user.value.id);
+window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
+    const attendees = event.meeting.attendees;
+    const title = event.meeting.title;
 
-window.Echo.channel('meeting').listen('MeetingCreated', (e: any) => {
-    console.log("MeetingCreated:", e);
+    if (isUserAttendee(attendees)) {
+        notifyAttendee(title);
+    }
+    
 });
 </script>
 
