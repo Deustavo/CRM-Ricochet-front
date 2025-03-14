@@ -33,7 +33,7 @@ const eventStatus = {
 
 const badgeClasses = {
     [eventStatus.PENDING]: 'bg-secondary',
-    [eventStatus.IN_PROGRESS]: 'bg-primary',
+    [eventStatus.IN_PROGRESS]: 'bg-success',
     [eventStatus.FINISHED]: 'bg-dark',
 }
 

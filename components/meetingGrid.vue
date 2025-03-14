@@ -69,14 +69,14 @@ const typeText = {
             class="meeting__item"
             v-for="meeting in props.meetings" :key="meeting.id"
         >
-            <b>
+            <p>
                 <span
                     class="badge rounded-pill"
                     :class="badgeTimeUntilEventClass(meeting)"
                 >
                     {{ badgeTimeUntilEventText(meeting) }}
                 </span>
-            </b>
+            </p>
 
             <h4 class="meeting__title">{{ meeting.title }}</h4>
 
