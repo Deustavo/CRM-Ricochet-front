@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import api from '@/api';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
@@ -33,9 +32,9 @@ onMounted(() => {
     if (!token) {
         return router.push('/login');
     }
-
-    api.meetings.getAll(token);
 });
+
+console.log("User:", user.value.id);
 
 window.Echo.channel('meeting').listen('MeetingCreated', (e) => {
     console.log("MeetingCreated:", e);

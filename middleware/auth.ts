@@ -1,11 +1,12 @@
-import api from "~/api";
+import api from "@/api";
 
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
     const token = sessionStorage.getItem('@token');
 
     if (!token) {
         return navigateTo('/');
     }
 
-    api.user.get(token);
+    await api.user.get(token);
+    api.meetings.getAll(token);
 })

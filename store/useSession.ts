@@ -2,12 +2,14 @@ import { ref } from 'vue';
 import api from '@/api';
 
 interface UserSession {
+    id: number | null;
     token: string | null;
     name: string | null,
     email: string | null
 }
 
 const emptyUser = {
+    id: null,
     token: null,
     name: null,
     email: null

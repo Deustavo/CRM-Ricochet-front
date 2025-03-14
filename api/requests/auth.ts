@@ -4,6 +4,7 @@ import { useSession } from "@/store/useSession";
 const { setUser } = useSession();
 
 interface ResponseLoginType {
+    id: number;
     token: string;
     name: string;
     email: string;
@@ -28,6 +29,7 @@ const login = async (body: BodyLoginType) => {
         });
 
         setUser({
+            id: data.id,
             token: data.token,
             name: data.name,
             email: data.email,

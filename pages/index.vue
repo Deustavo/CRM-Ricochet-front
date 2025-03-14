@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import api from "~/api";
+import api from "@/api";
 
 import { useRouter } from 'vue-router';
 const router = useRouter();
 
-const email = ref('teste@teste.com');
-const password = ref('teste@teste.com');
+const email = ref('gustavo@gustavo.com');
+const password = ref('gustavo@gustavo.com');
 const loading = ref(true);
 
 onMounted(async () => {

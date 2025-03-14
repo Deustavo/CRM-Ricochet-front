@@ -3,6 +3,9 @@ import { toast } from "vue3-toastify";
 import { useMeetings } from "@/store/useMeetings";
 const { setMeetings } = useMeetings();
 
+import { useSession } from "@/store/useSession";
+const { user } = useSession();
+
 interface MeetingType {
     id: number;
     title: string;
@@ -20,8 +23,11 @@ type AttendeesType = {
 }
 
 const getAll = async (token: string) => {
+    const userId = user.value.id;
+    const path = `http://localhost:8000/api/meetings/user/${userId}`;
+
     try {
-        const data: MeetingType[] = await $fetch('http://localhost:8000/api/meetings', {
+        const data: MeetingType[] = await $fetch(path, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`,

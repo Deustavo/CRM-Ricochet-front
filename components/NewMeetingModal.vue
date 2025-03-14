@@ -13,6 +13,12 @@ const newMeeting = ref({
 
 const closeModal = () => {
   const closeButton = document.getElementById('close');
+  const activeElement = document.activeElement as HTMLElement;
+
+  if (activeElement) {
+    activeElement.blur();
+  }
+
   if (closeButton) {
     closeButton.click();
   }
