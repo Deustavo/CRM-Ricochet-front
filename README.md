@@ -20,6 +20,18 @@ FLuxograma que ilustra como o "Auth middleware" e o "User session" funcionam.
 
 ![Autenticação](public/img/documentation/auth.png)
 
+## Login e cadastro de usuários
+
+A tela de login possui o campo de email e senha, necssários para fazer o logi. Ao enviar o formulário, é exibido um feedback de carregamento em seu botão. Caso ocorra algum erro login, é exibido um alert de feedback negativo
+
+![login](public/img/documentation/videos/login.webm)
+
+![login](public/img/documentation/videos/erro-login.webm)
+
+Seu botão se mantém inativo até que seus campos sejam preenchidos corretamente. Para seguir com o cadastro, é necessário ter um e0mail valido e que as duas senhas se correspondam.
+
+![registro](public/img/documentation/videos/registro.webm)
+
 ## Dashboard de eventos
 
 ### Descrição
