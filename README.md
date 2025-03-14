@@ -24,13 +24,13 @@ FLuxograma que ilustra como o "Auth middleware" e o "User session" funcionam.
 
 A tela de login possui o campo de email e senha, necssários para fazer o logi. Ao enviar o formulário, é exibido um feedback de carregamento em seu botão. Caso ocorra algum erro login, é exibido um alert de feedback negativo
 
-![login](public/img/documentation/videos/login.gif)
+![login](public/img/documentation/login.png)
 
-![login](public/img/documentation/videos/erro-login.gif)
+![login-error](public/img/documentation/login-error.png)
 
 Seu botão se mantém inativo até que seus campos sejam preenchidos corretamente. Para seguir com o cadastro, é necessário ter um e0mail valido e que as duas senhas se correspondam.
 
-![registro](public/img/documentation/videos/registro.gif)
+![register](public/img/documentation/register.png)
 
 ## Dashboard de eventos
 
