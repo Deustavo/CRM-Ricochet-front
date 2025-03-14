@@ -90,4 +90,4 @@ https://github.com/user-attachments/assets/748f7cae-32de-4357-8ff7-c502ca6c457c
 
 Para seu funcionamento, foi necessário configurar o plugin `laravel-echo` no projeto. Com ele, foi criado um canal para escutar os eventos do back-end, atualizando a lista de reuniões dos usuários em tempo real.
 
-![laravel-echo`](public/img/documentation/laravel-echo`.png)
+![laravel-echo](public/img/documentation/laravel-echo.png)
