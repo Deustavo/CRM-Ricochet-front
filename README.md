@@ -84,7 +84,8 @@ A lista de participantes é dinâmica de acordo com os usuários cadastrados no 
 
 Ao criar um novo evento, é disparada uma notificação para todos os usuários convidados, atualizando duas listas de reunições e disparando um efeito sonoro
 
-[Gravação de tela de 2025-03-14 17-12-23.webm](https://github.com/user-attachments/assets/0b1762cc-f433-404f-b221-75ea5bab20bc)
+
+https://github.com/user-attachments/assets/748f7cae-32de-4357-8ff7-c502ca6c457c
 
 
 Para seu funcionamento, foi necessário configurar o plugin `laravel-echo` no projeto. Com ele, foi criado um canal para escutar os eventos do back-end, atualizando a lista de reuniões dos usuários em tempo real.
