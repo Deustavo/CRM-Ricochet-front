@@ -18,19 +18,19 @@ As rotas de login e registro são abertas. A rota de dashboard é protegida pelo
 
 ## Fluxo de autenticação
 
-FLuxograma que ilustra como o "Auth middleware" e o "User session" funcionam.
+Fluxograma que ilustra como o "Auth middleware" e o "User session" funcionam.
 
 ![Autenticação](public/img/documentation/auth.png)
 
 ## Login e cadastro de usuários
 
-A tela de login possui o campo de email e senha, necssários para fazer o logi. Ao enviar o formulário, é exibido um feedback de carregamento em seu botão. Caso ocorra algum erro login, é exibido um alert de feedback negativo
+A tela de login possui o campo de email e senha, necessários para fazer o login. Ao enviar o formulário, é exibido um feedback de carregamento em seu botão. Caso ocorra algum erro no login, é exibido um alerta de feedback negativo.
 
-![login](public/img/documentation/login.png)
+| Login | Login Error |
+| --- | --- |
+| ![login](public/img/documentation/login.png) | ![login-error](public/img/documentation/login-error.png) |
 
-![login-error](public/img/documentation/login-error.png)
-
-Seu botão se mantém inativo até que seus campos sejam preenchidos corretamente. Para seguir com o cadastro, é necessário ter um e0mail valido e que as duas senhas se correspondam.
+Seu botão se mantém inativo até que seus campos sejam preenchidos corretamente. Para seguir com o cadastro, é necessário ter um e-mail válido e que as duas senhas se correspondam.
 
 ![register](public/img/documentation/register.png)
 
@@ -60,26 +60,25 @@ Observe que na versão mobile, é adicionado um scroll horizontal para melhor vi
 
 Cada evento possui título, data de início, horário de início e local. Caso o evento tenha um link, é exibido um botão de acesso à reunião online. No topo do evento, foi colocado um badge que exibe o status do evento, podendo ser "Já terminou", "Em andamento", uma contagem de horas ou uma contagem de dias.
 
-![Evento-andamento](public/img/documentation/event-andamento.png)
-
-![Evento](public/img/documentation/event.png)
-
-![Evento-expirado](public/img/documentation/event-expirado.png)
+| Evento em andamento | Evento | Evento expirado |
+| --- | --- | --- |
+| ![Evento-andamento](public/img/documentation/event-andamento.png) | ![Evento](public/img/documentation/event.png) | ![Evento-expirado](public/img/documentation/event-expirado.png) |
 
 ### Novo evento
 
 Ao clicar no botão do canto superior direito da tela, é aberta uma modal para o cadastro de um novo evento.
 
-Essa modal permite ao usuário criar um novo evento preenchendo titulo, descrição, inicio, fim link e a lsita dos participantes.
+Essa modal permite ao usuário criar um novo evento preenchendo título, descrição, início, fim, link e a lista dos participantes.
 
 Ao salvar, o evento é adicionado à lista de eventos do usuário e a modal é fechada. Se o usuário optar por cancelar, a modal é fechada sem salvar as informações.
 
 ![Eventonovo](public/img/documentation/new-event.png)
 
-A lsita de participantes é dinamica de acordo com os usuários cadastrados no banco.
+A lista de participantes é dinâmica de acordo com os usuários cadastrados no banco.
 
 ![convidados](public/img/documentation/event-participants.png)
 
 ### Notificações
 
 Descrição das notificações
+
