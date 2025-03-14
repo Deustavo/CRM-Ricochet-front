@@ -8,15 +8,23 @@ interface User {
 
 export default function useNewMeeting() {
     const emptyNewMeeting = {
-        title: 'teste',
-        description: 'aaa',
-        start_time: '2025-03-12T20:00:00',
-        end_time: '2025-03-12T21:00:00',
-        meeting_link: 'https://gatry.com/',
-        attendees: ["1"],
+        title: '',
+        description: '',
+        start_time: '',
+        end_time: '',
+        meeting_link: '',
+        attendees: [],
     };
     
-    const newMeeting = ref(emptyNewMeeting);
+    const newMeeting = ref<NewMeetingType>({
+        title: '',
+        description: '',
+        start_time: '',
+        end_time: '',
+        meeting_link: '',
+        attendees: []
+    });
+
     const clearNewMeeting = () => {
         newMeeting.value = emptyNewMeeting;
     };

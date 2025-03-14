@@ -40,13 +40,15 @@ const getAll = async () => {
     }
 }
 
-interface NewMeetingType {
-    title: string;
-    description: string;
-    start_time: string;
-    end_time: string;
-    meeting_link: string;
-    attendees: string[];
+declare global {
+    interface NewMeetingType {
+        title: string;
+        description: string;
+        start_time: string;
+        end_time: string;
+        meeting_link: string;
+        attendees: string[];
+    }
 }
 
 const create = async (token: string, body: NewMeetingType) => {

@@ -72,7 +72,6 @@ const toggleDropdownAttendees = () => {
 };
 
 const closeDropdownOnClickOutside = (event: MouseEvent) => {
-  event.preventDefault();
   const dropdown = document.querySelector('#input-attendees');
   if (dropdown && !dropdown.contains(event.target as Node)) {
     isDropdownOpen.value = false;
@@ -127,7 +126,7 @@ onBeforeUnmount(() => {
               <div class="input__container mb-2">
                 <label for="meetingEndTime" class="form-label">Fim</label>
                 <input type="datetime-local" class="form-control" id="meetingEndTime" v-model="newMeeting.end_time" :disabled="loading">
-                <p v-if="!isValidDate" class="text-danger">O fim da reunião deve ser depois do inicio</p>
+                <p v-if="!isValidDate && !!newMeeting.start_time" class="text-danger">O fim da reunião deve ser depois do inicio</p>
                 <p v-else class="mb-4"></p>
               </div>
               
