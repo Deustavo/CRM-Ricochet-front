@@ -73,7 +73,14 @@ const isDisabled = computed(() => {
                     <p v-else class="mb-4"></p> 
                 </div>
 
-                <button class="button--1 mb-4" type="submit" :disabled="isDisabled">Cadastrar</button>
+                <button class="button--1 mb-4" type="submit" :disabled="isDisabled">
+                    <i
+                        v-if="loading"
+                        class="pi pi-spin pi-spinner"
+                        style="min-width: 92px;"
+                    />
+                    <span v-else>Cadastrar</span>
+                </button>
             </form>
 
             <a href="/" class="d-block text-center">Já tem uma conta? faça o login aqui</a>
