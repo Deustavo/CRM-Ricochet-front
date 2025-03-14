@@ -20,6 +20,10 @@ export default defineNuxtConfig({
         }
     },
 
+    modules: [
+        '@nuxt/test-utils/module'
+    ],
+
     css: [
         "~/node_modules/bootstrap/dist/css/bootstrap.min.css"
     ],
