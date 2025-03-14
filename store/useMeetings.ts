@@ -16,9 +16,26 @@ type AttendeesType = {
     email: string;
 }
 
+interface BadgeTimeUntilEventType {
+    status: number;
+    text: string;
+}
+
 const state = reactive({
     meetings: [] as MeetingType[],
 });
+
+const eventStatus = {
+    PENDING: 1,
+    IN_PROGRESS: 2,
+    FINISHED: 3, 
+}
+
+const badgeClasses = {
+    [eventStatus.PENDING]: 'bg-secondary',
+    [eventStatus.IN_PROGRESS]: 'bg-primary',
+    [eventStatus.FINISHED]: 'bg-dark',
+}
 
 export const useMeetings = () => {
     const today = new Date();
@@ -49,11 +66,11 @@ export const useMeetings = () => {
     };
 
     /**
-     * Conta o tempo que falta para o evento e retoran uma string
+     * Conta o tempo que falta para o evento e retoram um objeto com o status e o texto
      * @param date 
      * @param endDate 
      */
-    const timeUntilEvent = (date: string, endDate: string): string => {
+    const badgeTimeUntilEvent = (date: string, endDate: string): BadgeTimeUntilEventType => {
         const now = new Date();
         const eventDate = new Date(date);
         const eventEndDate = new Date(endDate);
@@ -64,21 +81,42 @@ export const useMeetings = () => {
 
         // Se a data do evento já passou
         if (now > eventEndDate) {
-            return 'Já terminou';
+            return {
+                status: eventStatus.FINISHED,
+                text: 'Já terminou',
+            };
         }
 
         // Se o evento está acontecendo agora
         if (hoursDifference <= 0) {
-            return 'Em andamento';
+            return {
+                status: eventStatus.IN_PROGRESS,
+                text: 'Em andamento',
+            };
         }
 
         // Contagem de horas pro evento
         if (hoursDifference < 24) {
-            return `Em ${hoursDifference} horas`;
+            return {
+                status: eventStatus.PENDING,
+                text: `Em ${hoursDifference} horas`,
+            };
         }
 
         // Contagem de dias até o evento
-        return `Em ${daysDifference} dias`;
+        return {
+            status: eventStatus.PENDING,
+            text: `Em ${daysDifference} dias`,
+        };
+    };
+
+    const badgeTimeUntilEventText = (meeting: { start_time: string, end_time: string }) => {
+        return badgeTimeUntilEvent(meeting.start_time, meeting.end_time).text;
+    };
+
+    const badgeTimeUntilEventClass = (meeting: { start_time: string, end_time: string }) => {
+        const status = badgeTimeUntilEvent(meeting.start_time, meeting.end_time).status;
+        return badgeClasses[status];
     };
 
     return {
@@ -87,6 +125,7 @@ export const useMeetings = () => {
         pastMeetings,
         futureMeetings,
         setMeetings,
-        timeUntilEvent,
+        badgeTimeUntilEventText,
+        badgeTimeUntilEventClass,
     };
 };

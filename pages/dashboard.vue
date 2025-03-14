@@ -62,7 +62,7 @@ window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
         <NewMeetingModal />
 
         <div
-            class="d-flex justify-content-between align-items-center p-4 border-bottom"
+            class="d-flex justify-content-between align-items-center p-4 border-bottom position-fixed w-100 bg-white z-1"
             style="border-color: gray;"
         >
             <h1>
@@ -91,7 +91,7 @@ window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
         </div>
 
         <div class="pt-4 pb-4">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" style="margin-top: 110px;">
                 <h2>Olá, {{ user.name }}</h2>
                 <div class="dashboard__views">
                     <p class="me-2">Visualização:</p>

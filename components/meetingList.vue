@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMeetings } from "@/store/useMeetings";
-const { timeUntilEvent } = useMeetings();
+const { badgeTimeUntilEventText, badgeTimeUntilEventClass } = useMeetings();
 
 export interface MeetingType {
     id: number;
@@ -49,7 +49,7 @@ const getDate = (date: string): string => {
  * @param link 
  */
 const showLink = (meeting: MeetingType): boolean => {
-    return (timeUntilEvent(meeting.start_time, meeting.end_time) === 'Em andamento');
+    return (badgeTimeUntilEventText(meeting) === 'Em andamento');
 };
 
 const openLink = (link: string): void => {
@@ -81,10 +81,11 @@ const typeText = {
                         Acessar reunião
                     </button>
                     <span
-                    v-else
-                        class="badge rounded-pill bg-secondary"
+                        v-else
+                        class="badge rounded-pill"
+                        :class="badgeTimeUntilEventClass(meeting)"
                     >
-                        {{ timeUntilEvent(meeting.start_time, meeting.end_time) }}
+                        {{ badgeTimeUntilEventText(meeting) }}
                     </span>
                 </b>
             </div>
@@ -92,7 +93,7 @@ const typeText = {
             <div class="meeting__details">
                 <p>
                     <i class="pi pi-clock" />
-                    <span>{{ getHour(meeting.start_time) }}</span>
+                    <span>{{ getHour(meeting.start_time) }} - {{ getHour(meeting.end_time) }}</span>
                 </p>
 
                 <p>

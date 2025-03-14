@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMeetings } from "@/store/useMeetings";
-const { timeUntilEvent } = useMeetings();
+const { badgeTimeUntilEventText, badgeTimeUntilEventClass } = useMeetings();
 
 export interface MeetingType {
     id: number;
@@ -70,8 +70,11 @@ const typeText = {
             v-for="meeting in props.meetings" :key="meeting.id"
         >
             <b>
-                <span class="badge rounded-pill bg-secondary">
-                    {{ timeUntilEvent(meeting.start_time, meeting.end_time) }}
+                <span
+                    class="badge rounded-pill"
+                    :class="badgeTimeUntilEventClass(meeting)"
+                >
+                    {{ badgeTimeUntilEventText(meeting) }}
                 </span>
             </b>
 
@@ -79,7 +82,7 @@ const typeText = {
 
             <p>
                 <i class="pi pi-clock" />
-                <span>{{ getHour(meeting.start_time) }}</span>
+                <span>{{ getHour(meeting.start_time) }} - {{ getHour(meeting.end_time) }}</span>
             </p>
 
             <p>
