@@ -9,14 +9,15 @@ declare global {
 }
 
 export default defineNuxtPlugin(() => {
-    window.Pusher = Pusher
+  window.Pusher = Pusher
+  const config = useRuntimeConfig();
 
-    window.Echo = new Echo({
-        broadcaster: 'pusher',
-        key: '5f269c1dbb908e5f02db',
-        wsHost: '',
-        wsPort: 443,
-        cluster: 'sa1',
-        forceTLS: false
-    })
+  window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: config.public.pusherKey || '',
+    wsHost: config.public.pusherHost || '',
+    wsPort: config.public.pusherPort || 443,
+    cluster: config.public.pusherCluster || 'sa1',
+    forceTLS: config.public.pusherTls === 'false'
+  });
 });

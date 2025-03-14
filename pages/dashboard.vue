@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import notifySound from '@/public/mp3/notification.mp3'
 import { toast } from 'vue3-toastify';
 import { ref } from 'vue';
 import api from '@/api';
@@ -31,6 +32,9 @@ const isUserAttendee = (attendees: Array<string>) => {
 
 const notifyAttendee = (title: string) => {
     toast.info(`Nova reunião: ${title}`);
+    const audio = new Audio(notifySound);
+    audio.volume = 0.3;
+    audio.play();
     api.meetings.getAll();
 }
 
