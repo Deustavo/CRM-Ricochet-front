@@ -1,20 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import api from '@/api';
 
-const newMeeting = ref({
-    title: 'teste',
-    description: 'aaa',
-    start_time: '2025-03-12T20:00:00',
-    end_time: '2025-03-12T21:00:00',
-    meeting_link: 'https://gatry.com/',
-    attendees: ["1"],
-});
-
-const loading = ref(false);
-const setLoading = (value: boolean) => {
-    loading.value = value;
-};
+import useNewMeeting from '@/store/useNewMeeting';
+const {
+    newMeeting,
+    clearNewMeeting,
+    loading,
+    setLoading,
+    userList,
+    getUsers,
+} = useNewMeeting();
 
 const closeModal = () => {
   const closeButton = document.getElementById('close');
@@ -34,8 +29,12 @@ const createMeeting = async () => {
   const token = sessionStorage.getItem('@token');
   
   if (token) {
-    await api.meetings.create(token, newMeeting.value);
-    closeModal();
+    const hasSucces = await api.meetings.create(token, newMeeting.value);
+
+    if (hasSucces) {
+      clearNewMeeting();
+      closeModal();
+    }
   }
 
   setLoading(false);
@@ -65,6 +64,38 @@ const isDisabled = computed(() => {
       !isValidDate.value ||
       loading.value
     );
+});
+
+const isDropdownOpen = ref(false);
+const toggleDropdownAttendees = () => {
+  isDropdownOpen.value = !isDropdownOpen.value;
+};
+
+const closeDropdownOnClickOutside = (event: MouseEvent) => {
+  event.preventDefault();
+  const dropdown = document.querySelector('#input-attendees');
+  if (dropdown && !dropdown.contains(event.target as Node)) {
+    isDropdownOpen.value = false;
+  }
+};
+
+const toggleSelectionAttendees = (attendee: string) => {
+  const index = newMeeting.value.attendees.indexOf(attendee);
+
+  if (index === -1) {
+    newMeeting.value.attendees.push(attendee);
+  } else {
+    newMeeting.value.attendees.splice(index, 1);
+  }
+};
+
+onMounted(async () => {
+  document.addEventListener('click', closeDropdownOnClickOutside);
+  await getUsers();
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', closeDropdownOnClickOutside);
 });
 </script>
 
@@ -105,9 +136,26 @@ const isDisabled = computed(() => {
                 <input type="url" class="form-control" id="meetingLink" v-model="newMeeting.meeting_link" :disabled="loading">
               </div>
 
-              <div class="input__container">
-                <label for="meetingAttendees" class="form-label">Participantes</label>
-                <input type="text" class="form-control" id="meetingAttendees" v-model="newMeeting.attendees" :disabled="loading">
+              <div class="input__attendees" id="input-attendees">
+                <label class="form-label">Participantes</label>
+                <div @click="toggleDropdownAttendees" class="input__attendees__selected-users">
+                  <span v-if="newMeeting.attendees.length === 0" class="text-gray-500">Selecione...</span>
+                  <span v-else>
+                    <span v-for="option in newMeeting.attendees" :key="option" class="input__attendees__selected-user">
+                      {{ userList[Number(option) - 1]?.name }}
+                    </span>
+                  </span>
+                </div>
+                <div v-if="isDropdownOpen" class="input__attendees__dropdown" id="input-attendees-dropdown">
+                  <div
+                    v-for="(user, index) in userList"
+                    :key="index"
+                    @click="toggleSelectionAttendees(`${user.id}`)"
+                    class="input__attendees__dropdown__user"
+                  >
+                    {{ user.name }}
+                  </div>
+                </div>
               </div>
             </form>
         </div>
@@ -133,4 +181,47 @@ const isDisabled = computed(() => {
   </div>
 </template>
 
+<style scoped lang="scss">
+  .input__attendees {
+    position: relative;
+    width: 100%;
 
+    &__selected-users {
+      background-color: white;
+      border-radius: 6px;
+      padding: 8px 16px;
+      border: 1px solid var(--color-1);
+      color: #222;
+      box-shadow: none;
+      transition: all ease-in-out 200ms;
+      cursor: pointer;
+    }
+
+    &__selected-user {
+      background-color: #bfdbfe;
+      padding: 0.25rem 0.5rem ;
+      border-radius: 0.25rem;
+      margin-right: 0.25rem;
+    }
+
+    &__dropdown {
+      position: absolute;
+      width: 100%;
+      border: 1px solid #ccc;
+      background-color: white;
+      margin-top: 0.25rem;
+      max-height: 12rem;
+      overflow: auto;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+      &__user {
+        padding: 0.5rem;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #dbeafe;
+        }
+      }
+    }
+  }
+</style>

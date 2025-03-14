@@ -28,6 +28,22 @@ const get = async (token: string) => {
     }
 };
 
+const getAllUsers = async () => {
+    try {
+        const data: { users: UserSession[] } = await $fetch('http://localhost:8000/api/users', {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${sessionStorage.getItem('@token')}`,
+            },
+        });
+
+        return data.users;
+    } catch (error) {
+        console.log('Houve um erro ao buscar os usuários!');
+    }
+};
+
 export default {
-    get
+    get,
+    getAllUsers,
 }

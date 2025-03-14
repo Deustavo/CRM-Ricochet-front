@@ -63,8 +63,10 @@ const create = async (token: string, body: NewMeetingType) => {
 
         getAll();
         toast.success('Reunião criada com sucesso!');
+        return true;
     } catch (error) {
         toast.error('Houve um erro ao criar a reunião!');
+        return false;
     }
 }
 
