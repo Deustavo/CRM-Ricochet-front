@@ -32,7 +32,9 @@ A tela de login possui o campo de email e senha, necessários para fazer o login
 
 Seu botão se mantém inativo até que seus campos sejam preenchidos corretamente. Para seguir com o cadastro, é necessário ter um e-mail válido e que as duas senhas se correspondam.
 
-![register](public/img/documentation/register.png)
+| Registro incompleto | Registro completo |
+| --- | --- |
+| ![register](public/img/documentation/register.png) | ![register2](public/img/documentation/register2.png) |
 
 ## Dashboard de eventos
 
@@ -80,5 +82,10 @@ A lista de participantes é dinâmica de acordo com os usuários cadastrados no 
 
 ### Notificações
 
-Descrição das notificações
+Ao criar um novo evento, é disparada uma notificação para todos os usuários convidados, atualizando duas listas de reunições e disparando um efeito sonoro
 
+[]
+
+Para seu funcionamento, foi necessário configurar o plugin `laravel-echo` no projeto. Com ele, foi criado um canal para escutar os eventos do back-end, atualizando a lista de reuniões dos usuários em tempo real.
+
+![laravel-echo`](public/img/documentation/laravel-echo`.png)
