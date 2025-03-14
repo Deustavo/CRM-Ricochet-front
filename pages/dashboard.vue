@@ -116,7 +116,7 @@ window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
 
             <div v-if="meetingsView === 'grid'">
                 <div>
-                    <h3>Compromissos de hoje</h3>
+                    <h3>Hoje</h3>
                     <MeetingGrid
                         :meetings="todayMeetings"
                         type="today"
@@ -124,7 +124,7 @@ window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
                 </div>
 
                 <div>
-                    <h3>Compromissos futuros</h3>
+                    <h3>Nos proximos dias</h3>
                     <MeetingGrid
                         :meetings="futureMeetings"
                         type="future"
@@ -132,7 +132,7 @@ window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
                 </div>
 
                 <div>
-                    <h3>Compromissos passados</h3>
+                    <h3>Passados</h3>
                     <MeetingGrid
                         :meetings="pastMeetings"
                         type="past"
@@ -143,7 +143,7 @@ window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
 
             <div v-if="meetingsView === 'list'">
                 <div>
-                    <h3>Compromissos de hoje</h3>
+                    <h3>Hoje</h3>
                     <MeetingList
                         :meetings="todayMeetings"
                         type="today"
@@ -151,7 +151,7 @@ window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
                 </div>
 
                 <div class="mt-4">
-                    <h3>Compromissos futuros</h3>
+                    <h3>Nos proximos dias</h3>
                     <MeetingList
                         :meetings="futureMeetings"
                         type="future"
@@ -159,7 +159,7 @@ window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
                 </div>
 
                 <div class="mt-4">
-                    <h3>Compromissos passados</h3>
+                    <h3>Passados</h3>
                     <MeetingList
                         :meetings="pastMeetings"
                         type="past"
