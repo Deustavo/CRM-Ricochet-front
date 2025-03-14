@@ -35,8 +35,10 @@ const handleSubmit = async (event: Event) => {
         password: password.value,
     };
 
-    await api.auth.login(body);
-    loadingRequest.value = false;
+    const successLogin = await api.auth.login(body);
+    if (!successLogin) {
+        loadingRequest.value = false;
+    }
 };
 </script>
 
@@ -81,7 +83,15 @@ const handleSubmit = async (event: Event) => {
                 </button>
             </form>
 
-            <a href="/register" class="d-block text-center">Ou cadastre-se aqui</a>
+            <NuxtLink 
+                href="/register" 
+                class="d-block text-center" 
+                :class="{ 'disabled-link': loadingRequest }"
+                :aria-disabled="loadingRequest"
+                @click.prevent="loadingRequest && $event.preventDefault()"
+            >
+                Ou cadastre-se aqui
+            </NuxtLink>
         </div>
 
         <div class="loading-dots" v-else />

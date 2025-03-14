@@ -24,8 +24,10 @@ const registerUser = async (event: Event) => {
         password: newUser.value.password,
     };
 
-    await api.auth.register(body);
-    setLoading(false);
+    const successRegister = await api.auth.register(body);
+    if (!successRegister) {
+        setLoading(false);
+    }
 };
 
 const hasEmptyField = computed(() => (
@@ -83,7 +85,15 @@ const isDisabled = computed(() => {
                 </button>
             </form>
 
-            <a href="/" class="d-block text-center">Já tem uma conta? faça o login aqui</a>
+            <NuxtLink 
+                href="/" 
+                class="d-block text-center" 
+                :class="{ 'disabled-link': loading }"
+                :aria-disabled="loading"
+                @click.prevent="loading && $event.preventDefault()"
+            >
+                Já tem uma conta? faça o login aqui
+            </NuxtLink>
         </div>
     </NuxtLayout>
 </template>

@@ -36,8 +36,10 @@ const login = async (body: BodyLoginType) => {
         });
 
         navigateTo('/dashboard');
+        return true;
     } catch (error) {
         toast.error('Houve um erro ao fazer o login!');
+        return false;
     }
 };
 
@@ -67,13 +69,16 @@ const register = async (body: BodyRegisterType) => {
         if (data.status === 201) {
             login({ email: body.email, password: body.password });
         }
+
+        return true;
     } catch (error: ErrorResponseType | any) {
         if (error.response.status === 422) {
             toast.error('Usuário já cadastrado!');
-            return;
+            return false;
         }
 
         toast.error('Houve um erro ao fazer o cadastro!');
+        return false;
     }
 }
 
