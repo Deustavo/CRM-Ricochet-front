@@ -45,12 +45,18 @@ export const useMeetings = () => {
         return state.meetings.filter(meeting => {
             const meetingDate = new Date(meeting.start_time);
             meetingDate.setHours(0, 0, 0, 0);
-            return meetingDate.getTime() === today.getTime();
+            const meetingEndDate = new Date(meeting.end_time);
+            return meetingDate.getTime() === today.getTime() && meetingEndDate > new Date();
         });
     });
 
     const pastMeetings = computed(() => {
-        return state.meetings.filter(meeting => new Date(meeting.start_time) < today);
+        return state.meetings.filter(meeting => {
+            const meetingEndDate = new Date(meeting.end_time);
+            const meetingDate = new Date(meeting.start_time);
+            meetingDate.setHours(0, 0, 0, 0);
+            return meetingEndDate < new Date() || (meetingDate.getTime() === today.getTime() && meetingEndDate < new Date());
+        });
     });
 
     const futureMeetings = computed(() => {
@@ -76,6 +82,7 @@ export const useMeetings = () => {
         const eventEndDate = new Date(endDate);
 
         const timeDifference = eventDate.getTime() - now.getTime();
+        const minutesDifference = Math.ceil(timeDifference / (1000 * 60));
         const hoursDifference = Math.ceil(timeDifference / (1000 * 3600));
         const daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
@@ -95,11 +102,19 @@ export const useMeetings = () => {
             };
         }
 
+        // Contagem de minutos pro evento
+        if (minutesDifference < 60) {
+            return {
+                status: eventStatus.PENDING,
+                text: `Em ${minutesDifference} minutos`,
+            };
+        }
+
         // Contagem de horas pro evento
         if (hoursDifference < 24) {
             return {
                 status: eventStatus.PENDING,
-                text: `Em ${hoursDifference} horas`,
+                text: `Em menos de ${hoursDifference} horas`,
             };
         }
 

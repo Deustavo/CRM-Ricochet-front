@@ -16,13 +16,17 @@ export default function useNewMeeting() {
         attendees: [],
     };
     
+    const now = new Date();
+    const startTimeSugestion = now.toISOString().slice(0, 16);
+    const endTimeSugestion = new Date(now.getTime() + 30 * 60000).toISOString().slice(0, 16);
+
     const newMeeting = ref<NewMeetingType>({
-        title: '',
-        description: '',
-        start_time: '',
-        end_time: '',
-        meeting_link: '',
-        attendees: []
+        title: 'Mock Meeting Title',
+        description: 'This is a mock description for the meeting.',
+        start_time: startTimeSugestion,
+        end_time: endTimeSugestion,
+        meeting_link: 'https://mock-meeting-link.com',
+        attendees: ['1', '2']
     });
 
     const clearNewMeeting = () => {
@@ -39,6 +43,21 @@ export default function useNewMeeting() {
         userList.value = (await api.user.getAllUsers()) || [];
     };
 
+    const calculateTimeRemaining = (startTime: string) => {
+        const now = new Date();
+        const start = new Date(startTime);
+        const diffInMs = start.getTime() - now.getTime();
+        const diffInMinutes = Math.floor(diffInMs / 60000);
+
+        if (diffInMinutes < 60) {
+            return `${diffInMinutes} minutes remaining`;
+        } else {
+            const hours = Math.floor(diffInMinutes / 60);
+            const minutes = diffInMinutes % 60;
+            return `${hours} hours and ${minutes} minutes remaining`;
+        }
+    };
+
     return {
         newMeeting,
         clearNewMeeting,
@@ -46,5 +65,6 @@ export default function useNewMeeting() {
         setLoading,
         userList,
         getUsers,
+        calculateTimeRemaining,
     };
 }
