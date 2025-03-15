@@ -4,6 +4,22 @@ Este projeto é um desafio da empresa Ricochet 360 de criar um sistema CRM de ge
 
 ![Dashboard](public/img/documentation/dashboard.png)
 
+## Executando o projeto local
+
+### Construir a imagem
+
+```sh
+docker build -t front-ricochet  .
+```
+
+### Executar o contêiner
+
+```sh
+docker run -p 3000:3000 front-ricochet 
+```
+
+<hr>
+
 ## Arquitetura da solução
 
 Este projeto contém as rotas:
@@ -16,11 +32,15 @@ As rotas de login e registro são abertas. A rota de dashboard é protegida pelo
 
 ![Arquitetura da Solução](public/img/documentation/arquiteture.png)
 
+<hr>
+
 ## Fluxo de autenticação
 
 Fluxograma que ilustra como o "Auth middleware" e o "User session" funcionam.
 
 ![Autenticação](public/img/documentation/auth.png)
+
+<hr>
 
 ## Login e cadastro de usuários
 
@@ -35,6 +55,8 @@ Seu botão se mantém inativo até que seus campos sejam preenchidos corretament
 | Registro incompleto | Registro completo |
 | --- | --- |
 | ![register](public/img/documentation/register.png) | ![register2](public/img/documentation/register2.png) |
+
+<hr>
 
 ## Dashboard de eventos
 
@@ -84,9 +106,7 @@ A lista de participantes é dinâmica de acordo com os usuários cadastrados no 
 
 Ao criar um novo evento, é disparada uma notificação para todos os usuários convidados, atualizando duas listas de reunições e disparando um efeito sonoro
 
-
 https://github.com/user-attachments/assets/748f7cae-32de-4357-8ff7-c502ca6c457c
-
 
 Para seu funcionamento, foi necessário configurar o plugin `laravel-echo` no projeto. Com ele, foi criado um canal para escutar os eventos do back-end, atualizando a lista de reuniões dos usuários em tempo real.
 
