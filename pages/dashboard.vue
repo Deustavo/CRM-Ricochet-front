@@ -30,8 +30,8 @@ const isUserAttendee = (attendees: Array<string>) => {
     return attendees.some((attendee: any) => attendee == user.value.id);
 }
 
-const notifyAttendee = (title: string) => {
-    toast.info(`Nova reunião: ${title}`);
+const notifyAttendee = (notification: string) => {
+    toast.info(notification);
     const audio = new Audio(notifySound);
     audio.volume = 0.3;
     audio.play();
@@ -51,13 +51,23 @@ onMounted(() => {
 });
 
 window.Echo.channel('meeting').listen('MeetingCreated', (event: any) => {
-    const attendees = event.meeting.attendees;
-    const title = event.meeting.title;
+    const attendees = event?.meeting?.attendees;
 
-    if (isUserAttendee(attendees)) {
-        notifyAttendee(title);
+    if(!!attendees && isUserAttendee(attendees)) {
+        const title = event.meeting.title;
+        const notification = `Nova reunião "${title}" foi criada.`;
+        notifyAttendee(notification);
     }
-    
+});
+
+window.Echo.channel('meeting').listen('MeetingReminder', (event: any) => {
+    const attendees = event?.meeting?.attendees;
+
+    if(!!attendees && isUserAttendee(attendees)) {
+        const title = event.meeting.title;
+        const notification = `Lembrete: Reunião "${title}" começa em 1 minuto.`;
+        notifyAttendee(notification);
+    }
 });
 </script>
 
