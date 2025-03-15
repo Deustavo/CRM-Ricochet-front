@@ -7,18 +7,18 @@ interface User {
 }
 
 export default function useNewMeeting() {
+    const now = new Date();
+    const startTimeSugestion = new Date(now.getTime() + (7 - 180) * 60000).toISOString().slice(0, 16);
+    const endTimeSugestion = new Date(now.getTime() + (30 + 7 - 180) * 60000).toISOString().slice(0, 16);
+    
     const emptyNewMeeting = {
         title: '',
         description: '',
-        start_time: '',
-        end_time: '',
+        start_time: startTimeSugestion,
+        end_time: endTimeSugestion,
         meeting_link: '',
         attendees: [],
     };
-    
-    const now = new Date();
-    const startTimeSugestion = now.toISOString().slice(0, 16);
-    const endTimeSugestion = new Date(now.getTime() + 30 * 60000).toISOString().slice(0, 16);
 
     const newMeeting = ref<NewMeetingType>({
         title: 'Mock Meeting Title',
