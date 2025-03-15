@@ -4,12 +4,6 @@ Este projeto é um desafio da empresa Ricochet 360 de criar um sistema CRM de ge
 
 ![Dashboard](public/img/documentation/dashboard.png)
 
-## Executando o projeto local
-
-```sh
-docker-compose up --build
-```
-
 <hr>
 
 ## Arquitetura da solução
