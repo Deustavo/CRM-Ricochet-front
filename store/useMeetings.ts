@@ -42,29 +42,35 @@ export const useMeetings = () => {
     today.setHours(0, 0, 0, 0);
 
     const todayMeetings = computed(() => {
-        return state.meetings.filter(meeting => {
-            const meetingDate = new Date(meeting.start_time);
-            meetingDate.setHours(0, 0, 0, 0);
-            const meetingEndDate = new Date(meeting.end_time);
-            return meetingDate.getTime() === today.getTime() && meetingEndDate > new Date();
-        });
+        return state.meetings
+            .filter(meeting => {
+                const meetingDate = new Date(meeting.start_time);
+                meetingDate.setHours(0, 0, 0, 0);
+                const meetingEndDate = new Date(meeting.end_time);
+                return meetingDate.getTime() === today.getTime() && meetingEndDate > new Date();
+            })
+            .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
     });
 
     const pastMeetings = computed(() => {
-        return state.meetings.filter(meeting => {
-            const meetingEndDate = new Date(meeting.end_time);
-            const meetingDate = new Date(meeting.start_time);
-            meetingDate.setHours(0, 0, 0, 0);
-            return meetingEndDate < new Date() || (meetingDate.getTime() === today.getTime() && meetingEndDate < new Date());
-        });
+        return state.meetings
+            .filter(meeting => {
+                const meetingEndDate = new Date(meeting.end_time);
+                const meetingDate = new Date(meeting.start_time);
+                meetingDate.setHours(0, 0, 0, 0);
+                return meetingEndDate < new Date() || (meetingDate.getTime() === today.getTime() && meetingEndDate < new Date());
+            })
+            .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
     });
 
     const futureMeetings = computed(() => {
-        return state.meetings.filter(meeting => {
-            const meetingDate = new Date(meeting.start_time);
-            meetingDate.setHours(0, 0, 0, 0);
-            return meetingDate.getTime() !== today.getTime() && meetingDate > today;
-        });
+        return state.meetings
+            .filter(meeting => {
+                const meetingDate = new Date(meeting.start_time);
+                meetingDate.setHours(0, 0, 0, 0);
+                return meetingDate.getTime() !== today.getTime() && meetingDate > today;
+            })
+            .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
     });
 
     const setMeetings = (meetings: MeetingType[]) => {
