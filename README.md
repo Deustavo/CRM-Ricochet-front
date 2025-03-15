@@ -6,16 +6,8 @@ Este projeto é um desafio da empresa Ricochet 360 de criar um sistema CRM de ge
 
 ## Executando o projeto local
 
-### Construir a imagem
-
 ```sh
-docker build -t front-ricochet  .
-```
-
-### Executar o contêiner
-
-```sh
-docker run -p 3000:3000 front-ricochet 
+docker-compose up --build
 ```
 
 <hr>
