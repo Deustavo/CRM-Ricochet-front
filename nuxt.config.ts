@@ -17,6 +17,7 @@ export default defineNuxtConfig({
             pusherPort: process.env.NUXT_PUBLIC_PUSHER_PORT,
             pusherCluster: process.env.NUXT_PUBLIC_PUSHER_CLUSTER,
             pusherTls: process.env.NUXT_PUBLIC_PUSHER_TLS,
+            apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
         }
     },
 

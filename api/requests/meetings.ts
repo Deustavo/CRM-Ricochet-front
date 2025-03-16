@@ -1,4 +1,5 @@
 import { toast } from "vue3-toastify";
+import { http } from "../http";
 
 import { useMeetings } from "@/store/useMeetings";
 const { setMeetings } = useMeetings();
@@ -24,10 +25,10 @@ type AttendeesType = {
 
 const getAll = async () => {
     const userId = user.value.id;
-    const path = `http://localhost:8000/api/meetings/user/${userId}`;
+    const path = `/api/meetings/user/${userId}`;
 
     try {
-        const data: MeetingType[] = await $fetch(path, {
+        const data: MeetingType[] = await http(path, {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${sessionStorage.getItem('@token')}`,
@@ -53,7 +54,7 @@ declare global {
 
 const create = async (token: string, body: NewMeetingType) => {
     try {
-        await $fetch('http://localhost:8000/api/meetings', {
+        await http('/api/meetings', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${token}`,

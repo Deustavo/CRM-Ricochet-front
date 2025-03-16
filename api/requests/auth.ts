@@ -1,4 +1,5 @@
 import { toast } from 'vue3-toastify';
+import { http } from '../http';
 
 import { useSession } from "@/store/useSession";
 const { setUser } = useSession();
@@ -23,7 +24,7 @@ interface ErrorResponseType {
 
 const login = async (body: BodyLoginType) => {
     try {
-        const data: ResponseLoginType = await $fetch('http://localhost:8000/api/login', {
+        const data: ResponseLoginType = await http('/api/login', {
             method: 'POST',
             body,
         });
@@ -57,7 +58,7 @@ interface BodyRegisterType {
 
 const register = async (body: BodyRegisterType) => {
     try {
-        const data: ResponseRegisterType = await $fetch('http://localhost:8000/api/register', {
+        const data: ResponseRegisterType = await http('/api/register', {
             method: 'POST',
             body,
             headers: {
@@ -86,7 +87,7 @@ const logout = async () => {
     const token = sessionStorage.getItem('@token');
 
     try {
-        await $fetch('http://localhost:8000/api/logout', {
+        await http('/api/logout', {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,

@@ -1,3 +1,5 @@
+import { http } from '../http';
+
 import { useSession } from "@/store/useSession";
 const { setUser, logout } = useSession();
 
@@ -10,7 +12,7 @@ interface UserSession {
 
 const get = async (token: string) => {
     try {
-        const data: UserSession = await $fetch('http://localhost:8000/api/user', {
+        const data: UserSession = await http('/api/user', {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -30,7 +32,7 @@ const get = async (token: string) => {
 
 const getAllUsers = async () => {
     try {
-        const data: { users: UserSession[] } = await $fetch('http://localhost:8000/api/users', {
+        const data: { users: UserSession[] } = await http('/api/users', {
             method: 'GET',
             headers: {
                 Authorization: `Bearer ${sessionStorage.getItem('@token')}`,
